@@ -1,7 +1,6 @@
 package com.example.chapter5
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -37,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // setonClickListener 대신 xml에서 onClick을 사용했기에 오픈 함수로 설정
     fun numberClicked(view: View) {
         val numberString = (view as? Button)?.text?.toString() ?: ""
         val numberText = if (operatorText.isEmpty()) firstNumberText else secondNumberText
@@ -60,10 +60,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val firstNumber = firstNumberText.toString().toBigDecimal()
-        val secondNumber = secondNumberText.toString().toBigDecimal()
+        val firstNumber = firstNumberText.toString().toBigDecimal() // 부동 소수점 해결
+        val secondNumber = secondNumberText.toString().toBigDecimal() // 부동 소수점 해결
 
-        val result = when(operatorText.toString()) {
+        val result = when (operatorText.toString()) {
             "+" -> decimalFormat.format(firstNumber + secondNumber)
             "-" -> decimalFormat.format(firstNumber - secondNumber)
             else -> "잘못된 수식 입니다."
@@ -74,12 +74,12 @@ class MainActivity : AppCompatActivity() {
     fun operatorClicked(view: View) {
         val operatorString = (view as? Button)?.text?.toString() ?: ""
         if (firstNumberText.isEmpty()) {
-            Toast.makeText(this,"먼저 숫자를 입력해 주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "먼저 숫자를 입력해 주세요.", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (secondNumberText.isNotEmpty()) {
-            Toast.makeText(this,"1개의 연산자에 대해서만 연산이 가능합니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "1개의 연산자에 대해서만 연산이 가능합니다.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -88,8 +88,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateEquationTextView() {
-        val firstFormattedNumber = if (firstNumberText.isNotEmpty()) decimalFormat.format(firstNumberText.toString().toBigDecimal()) else ""
-        val secondFormattedNumber = if (secondNumberText.isNotEmpty()) decimalFormat.format(secondNumberText.toString().toBigDecimal()) else ""
+        val firstFormattedNumber = if (firstNumberText.isNotEmpty()) decimalFormat.format(
+            firstNumberText.toString().toBigDecimal()
+        ) else ""
+        val secondFormattedNumber = if (secondNumberText.isNotEmpty()) decimalFormat.format(
+            secondNumberText.toString().toBigDecimal()
+        ) else ""
 
         binding.tvEquation.text = "$firstFormattedNumber $operatorText $secondFormattedNumber"
     }
