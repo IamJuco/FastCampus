@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="24dp"
     tools:context=".AddActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -16,5 +17,59 @@
         android:text="단어 추가"
         android:textSize="30sp"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_textInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="35"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_textInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="단어" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_meanTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:counterEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/layout_textInput">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_meanTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="뜻" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- 1개만 선택 가능 = singleSelection -->
+    <!-- 반드시 선택해야함 = selectionRequired -->
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_typeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:singleSelection="true"
+        app:selectionRequired="true"
+        app:layout_constraintTop_toBottomOf="@+id/layout_meanTextInput" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="추가"
+        app:layout_constraintTop_toBottomOf="@id/chip_typeGroup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
