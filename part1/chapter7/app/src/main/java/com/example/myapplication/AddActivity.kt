@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,6 +19,10 @@ class AddActivity : AppCompatActivity() {
 
         uiSetting()
         initViews()
+
+        binding.btnAdd.setOnClickListener {
+            add()
+        }
 
     }
 
@@ -44,5 +49,19 @@ class AddActivity : AppCompatActivity() {
             isCheckable = true
             isClickable = true
         }
+    }
+
+    private fun add() {
+        val text = binding.etTextInput.text.toString()
+        val mean = binding.etMeanTextInput.text.toString()
+        val type = findViewById<Chip>(binding.chipTypeGroup.checkedChipId).text.toString()
+        val word = Word(text, mean, type)
+        Thread { // 메인이 아닌 workThread 에서 작업을 해줘야함
+            AppDatabase.getInstance(this)?.wordDao()?.insert(word)
+            runOnUiThread { // ui 작업은 여기서 해야함
+                Toast.makeText(this,"저장을 완료 했습니다.", Toast.LENGTH_SHORT).show()
+            }
+            finish()
+        }.start() // thread를 시작해 줘야함
     }
 }

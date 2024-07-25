@@ -41,12 +41,7 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
     }
 
     private fun initRecyclerView() {
-        val dummyList = mutableListOf(
-            Word("weather", "날씨", "명사"),
-            Word("honey", "꿀", "명사"),
-            Word("run", "실행하다", "동사")
-        )
-        wordAdapter = WordAdapter(dummyList, this)
+        wordAdapter = WordAdapter(mutableListOf(), this)
         binding.rvWord.apply {
             adapter = wordAdapter
             // 현재 apply를 열었기 때문에 this대신 applicationContext 넣었음, apply의 this는 현재 recyclerview임

@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -39,6 +41,10 @@ android {
 }
 
 dependencies {
+    // Room
+    implementation(libs.androidx.room.runtime)
+    // Annotation Tool
+    kapt(libs.androidx.room.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
