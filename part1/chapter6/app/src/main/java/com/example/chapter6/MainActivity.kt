@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
             setView(dialogBinding.root)
             setPositiveButton("확인") { _, _ ->
                 countdownSecond = dialogBinding.numberPickerCountdownSecond.value
-                currentCountdownDeciSecond = currentDeciSecond * 10
+                currentCountdownDeciSecond = countdownSecond * 10
                 binding.tvCountdown.text =
                     String.format("%02d", countdownSecond) // 05초, 08초 식으로 표현, "%03d"면 011초
             }
