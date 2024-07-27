@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -61,6 +62,8 @@ class AddActivity : AppCompatActivity() {
             runOnUiThread { // ui 작업은 여기서 해야함
                 Toast.makeText(this,"저장을 완료 했습니다.", Toast.LENGTH_SHORT).show()
             }
+            val intent = Intent().putExtra("isUpdated", true)
+            setResult(RESULT_OK, intent)
             finish()
         }.start() // thread를 시작해 줘야함
     }

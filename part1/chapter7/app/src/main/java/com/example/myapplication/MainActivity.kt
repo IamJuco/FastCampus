@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -14,6 +15,15 @@ import com.example.myapplication.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var wordAdapter: WordAdapter
+    private val updateAddWordResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val isUpdated = result.data?.getBooleanExtra("isUpdated", false) ?: false
+        if (result.resultCode == RESULT_OK && isUpdated) {
+            updateAddWord()
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +36,7 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
 
         binding.fabAdd.setOnClickListener {
             Intent(this, AddActivity::class.java).let {
-                startActivity(it)
+                updateAddWordResult.launch(it)
             }
         }
 
@@ -50,6 +60,26 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
             val dividerItemDecoration = DividerItemDecoration(applicationContext, LinearLayoutManager.VERTICAL)
             addItemDecoration(dividerItemDecoration)
         }
+        Thread {
+            val list = AppDatabase.getInstance(this)?.wordDao()?.getAll() ?: emptyList()
+            Thread.sleep(1000)
+            wordAdapter.list.addAll(list)
+            runOnUiThread { // view에 관련된건 runOnUiThread 에다가 넣어줘야함
+                wordAdapter.notifyDataSetChanged()
+            }
+        }.start()
+    }
+
+    private fun updateAddWord() {
+        Thread {
+            AppDatabase.getInstance(this)?.wordDao()?.getLatestWord()?.let { word ->
+                wordAdapter.list.add(0, word)
+                runOnUiThread {
+                    wordAdapter.notifyDataSetChanged()
+                }
+            }
+
+        }.start()
     }
 
     override fun onClick(word: Word) {
