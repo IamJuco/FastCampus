@@ -1,10 +1,13 @@
 package com.example.chapter8
 
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +17,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.chapter8.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    // 이미지를 여러개 가져옴 = GetMultipleContents
+    private val imageLoadLauncher = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uriList ->
+        updateImages(uriList)
+    }
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadImage() {
-        Toast.makeText(this, "이미지를 가져올 예정", Toast.LENGTH_SHORT).show()
+        imageLoadLauncher.launch("image/*")
 
     }
 
@@ -140,6 +147,28 @@ class MainActivity : AppCompatActivity() {
                     ),
                     REQUEST_READ_EXTERNAL_STORAGE
                 )
+            }
+        }
+    }
+
+    private fun updateImages(uriList : List<Uri>) {
+        Log.i("upadateImages", "$uriList")
+    }
+
+    // 버튼을 클릭 하면 권한 설정가능 -> 한번더 클릭해야 이미지를 가져올 수 있음
+    // onRequestPermissionsResult를 통해 요청 값(키 값)이 일치하면 권한 설정 하자마자 바로 이미지를 가져올 수 있는 화면이 뜸
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when(requestCode) {
+            REQUEST_READ_EXTERNAL_STORAGE -> {
+                if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+                    loadImage()
+                }
             }
         }
     }
