@@ -1,5 +1,6 @@
 package com.example.chapter8
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -14,14 +15,18 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.chapter8.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     // 이미지를 여러개 가져옴 = GetMultipleContents
-    private val imageLoadLauncher = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uriList ->
-        updateImages(uriList)
-    }
+    private val imageLoadLauncher =
+        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uriList ->
+            updateImages(uriList)
+        }
     private lateinit var binding: ActivityMainBinding
+    private lateinit var imageAdapter: ImageAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,6 +39,12 @@ class MainActivity : AppCompatActivity() {
             checkPermission()
         }
 
+        binding.btnNavigateFrameActivity.setOnClickListener {
+            navigateToFrameActivity()
+        }
+
+        initRecyclerView()
+
     }
 
     private fun uiSetting() {
@@ -42,6 +53,35 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun initRecyclerView() {
+        imageAdapter = ImageAdapter(object : ImageAdapter.ItemClickListener {
+            override fun onLoadMoreClick() {
+                checkPermission()
+            }
+        })
+
+        binding.rvImage.apply {
+            adapter = imageAdapter
+            layoutManager = GridLayoutManager(context, 2)
+        }
+    }
+
+    private fun updateImages(uriList: List<Uri>) {
+        Log.i("upadateImages", "$uriList")
+        val images = uriList.map {
+            ImageItems.Image(it)
+        }
+        val updatedImages = imageAdapter.currentList.toMutableList().apply {
+            addAll(images)
+        }
+        imageAdapter.submitList(updatedImages)
+    }
+
+    private fun loadImage() {
+        imageLoadLauncher.launch("image/*")
+
     }
 
     private fun checkPermission() {
@@ -76,16 +116,17 @@ class MainActivity : AppCompatActivity() {
 
             // 권한을 거부 했을 때
             shouldShowRequestPermissionRationale(
-                android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED) ||
-            shouldShowRequestPermissionRationale(
-                android.Manifest.permission.READ_MEDIA_IMAGES
+                android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
             ) ||
-            shouldShowRequestPermissionRationale(
-                android.Manifest.permission.READ_MEDIA_VIDEO
-            ) ||
-            shouldShowRequestPermissionRationale(
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ) -> {
+                    shouldShowRequestPermissionRationale(
+                        android.Manifest.permission.READ_MEDIA_IMAGES
+                    ) ||
+                    shouldShowRequestPermissionRationale(
+                        android.Manifest.permission.READ_MEDIA_VIDEO
+                    ) ||
+                    shouldShowRequestPermissionRationale(
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) -> {
                 showPermissionInfoDialog()
             }
 
@@ -95,11 +136,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-    }
-
-    private fun loadImage() {
-        imageLoadLauncher.launch("image/*")
-
     }
 
     private fun showPermissionInfoDialog() {
@@ -151,8 +187,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateImages(uriList : List<Uri>) {
-        Log.i("upadateImages", "$uriList")
+    private fun navigateToFrameActivity() {
+        val images =
+            imageAdapter.currentList.filterIsInstance<ImageItems.Image>().map { it.uri.toString() }
+                .toTypedArray()
+        val intent = Intent(this, FrameActivity::class.java)
+            .putExtra("images", images)
+        startActivity(intent)
     }
 
     // 버튼을 클릭 하면 권한 설정가능 -> 한번더 클릭해야 이미지를 가져올 수 있음
@@ -164,9 +205,11 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        when(requestCode) {
+        when (requestCode) {
             REQUEST_READ_EXTERNAL_STORAGE -> {
-                if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
+                // 권한 null 처리
+                val resultCode = grantResults.firstOrNull() ?: PackageManager.PERMISSION_DENIED
+                if (resultCode == PackageManager.PERMISSION_GRANTED) {
                     loadImage()
                 }
             }
