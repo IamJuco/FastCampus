@@ -15,6 +15,7 @@ import com.example.myapplication.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var wordAdapter: WordAdapter
+    private var selectedWord: Word? = null
     private val updateAddWordResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -22,7 +23,15 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
         if (result.resultCode == RESULT_OK && isUpdated) {
             updateAddWord()
         }
+    }
 
+    private val updateEditWordResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val editWord = result.data?.getParcelableExtra<Word>("editWord")
+        if (result.resultCode == RESULT_OK && editWord != null) {
+            updatedEditWord(editWord)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +49,14 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
             }
         }
 
+        binding.ivDelete.setOnClickListener {
+            delete()
+        }
+
+        binding.ivEdit.setOnClickListener {
+            edit()
+        }
+
     }
 
     private fun uiSetting() {
@@ -55,9 +72,11 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
         binding.rvWord.apply {
             adapter = wordAdapter
             // 현재 apply를 열었기 때문에 this대신 applicationContext 넣었음, apply의 this는 현재 recyclerview임
-            layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
             // DividerItemDecoration = 구분 선을 아이템 아래에 만들어 줌 ( 커스텀 가능 )
-            val dividerItemDecoration = DividerItemDecoration(applicationContext, LinearLayoutManager.VERTICAL)
+            val dividerItemDecoration =
+                DividerItemDecoration(applicationContext, LinearLayoutManager.VERTICAL)
             addItemDecoration(dividerItemDecoration)
         }
         Thread {
@@ -82,7 +101,42 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
         }.start()
     }
 
+    private fun updatedEditWord(word: Word) {
+        val index = wordAdapter.list.indexOfFirst { it.id == word.id }
+        wordAdapter.list[index] = word
+        runOnUiThread {
+            selectedWord = word
+            wordAdapter.notifyItemChanged(index)
+            binding.tvText.text = word.text
+            binding.tvMean.text = word.mean
+        }
+    }
+
+    private fun delete() {
+        if (selectedWord == null) return
+        Thread {
+            selectedWord?.let { word ->
+                AppDatabase.getInstance(this)?.wordDao()?.delete(word)
+                runOnUiThread {
+                    wordAdapter.list.remove(word)
+                    wordAdapter.notifyDataSetChanged()
+                    binding.tvText.text = ""
+                    binding.tvMean.text = ""
+                    Toast.makeText(this, "삭제가 완료 됐습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }.start()
+    }
+
+    private fun edit() {
+        if (selectedWord == null) return
+        val intent = Intent(this, AddActivity::class.java).putExtra("originWord", selectedWord)
+        updateEditWordResult.launch(intent)
+    }
+
     override fun onClick(word: Word) {
-        Toast.makeText(this, "${word.text} 가 클릭 됐습니다.", Toast.LENGTH_SHORT).show()
+        selectedWord = word
+        binding.tvText.text = word.text
+        binding.tvMean.text = word.mean
     }
 }
