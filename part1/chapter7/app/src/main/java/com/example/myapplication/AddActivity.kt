@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
+import androidx.core.widget.addTextChangedListener
 import com.example.myapplication.databinding.ActivityAddBinding
 import com.google.android.material.chip.Chip
 
@@ -49,7 +50,17 @@ class AddActivity : AppCompatActivity() {
             }
         }
 
-        originWord = intent.getParcelableExtra<Word>("originWord")
+        binding.etTextInput.addTextChangedListener {
+            it?.let { text ->
+                binding.layoutTextInput.error = when (text.length) {
+                    0 -> "값을 입력해 주세요."
+                    1 -> "2글자 이상을 입력해 주세요."
+                    else -> null
+                }
+            }
+        }
+
+        originWord = intent.getParcelableExtra("originWord")
         originWord?.let { word ->
             binding.etTextInput.setText(word.text)
             binding.etMeanTextInput.setText(word.mean)
