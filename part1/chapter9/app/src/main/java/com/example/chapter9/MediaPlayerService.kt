@@ -1,7 +1,12 @@
 package com.example.chapter9
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.graphics.drawable.Icon
 import android.media.MediaPlayer
 import android.os.IBinder
 
@@ -13,7 +18,102 @@ class MediaPlayerService : Service() {
         return null
     }
 
-    // Service가 시작될 때 처음 불림
+    override fun onCreate() {
+        super.onCreate()
+        createNotificationChannel()
+
+        val playIcon = Icon.createWithResource(baseContext, R.drawable.ic_play)
+        val pauseIcon = Icon.createWithResource(baseContext, R.drawable.ic_pause)
+        val stopIcon = Icon.createWithResource(baseContext, R.drawable.ic_stop)
+
+        val mainPendingIntent = PendingIntent.getActivity(
+            baseContext,
+            0,
+            Intent(baseContext, MainActivity::class.java)
+                .apply {
+                    flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                },
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val pausePendingIntent = PendingIntent.getService(
+            baseContext,
+            0,
+            Intent(baseContext, MediaPlayerService::class.java).apply {
+                action = MEDIA_PLAYER_PAUSE
+            },
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val playPendingIntent = PendingIntent.getService(
+            baseContext,
+            0,
+            Intent(baseContext, MediaPlayerService::class.java).apply {
+                action = MEDIA_PLAYER_PLAY
+            },
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val stopPendingIntent = PendingIntent.getService(
+            baseContext,
+            0,
+            Intent(baseContext, MediaPlayerService::class.java).apply {
+                action = MEDIA_PLAYER_STOP
+            },
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notification = Notification.Builder(baseContext, CHANNEL_ID)
+            .setStyle(
+                Notification.MediaStyle()
+                    .setShowActionsInCompactView(0, 1, 2)
+            )
+            .setVisibility(Notification.VISIBILITY_PUBLIC)
+            // statusBar 알람 아이콘
+            .setSmallIcon(R.drawable.ic_star)
+            .addAction(
+                Notification.Action.Builder(
+                    pauseIcon,
+                    "Pause",
+                    pausePendingIntent
+                ).build()
+            )
+
+            .addAction(
+                Notification.Action.Builder(
+                    playIcon,
+                    "Play",
+                    playPendingIntent
+                ).build()
+            )
+
+            .addAction(
+                Notification.Action.Builder(
+                    stopIcon,
+                    "Stop",
+                    stopPendingIntent
+                ).build()
+            )
+            .setContentIntent(mainPendingIntent)
+            .setContentTitle("음악재생")
+            .setContentText("음원이 재생 중 입니다...")
+            .build()
+
+        // API 34 이상 부터는 ManiFest에 foregroundServiceType을 지정해야함
+        // 서비스가 여러가지면 | 연산자로 구분가능
+        // ex) android:foregroundServiceType="camera|microphone"
+        startForeground(100, notification)
+    }
+
+    private fun createNotificationChannel() {
+        val channel =
+            NotificationChannel(CHANNEL_ID, "MEDIA_PLAYER", NotificationManager.IMPORTANCE_DEFAULT)
+
+        val notificationManager = baseContext.getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
+    }
+
+    // onStartCommand = Service가 시작될 때 처음 불림
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             MEDIA_PLAYER_PLAY -> {
