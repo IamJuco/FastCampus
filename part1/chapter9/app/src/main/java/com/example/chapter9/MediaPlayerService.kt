@@ -6,12 +6,14 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.Icon
 import android.media.MediaPlayer
 import android.os.IBinder
 
 class MediaPlayerService : Service() {
     private var mediaPlayer: MediaPlayer? = null
+    private val receiver = LowBatteryReceiver()
 
     // 포그라운드 서비스를 이용 할 거기 때문에 사용하지않음
     override fun onBind(intent: Intent): IBinder? {
@@ -21,6 +23,7 @@ class MediaPlayerService : Service() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        initReceiver()
 
         val playIcon = Icon.createWithResource(baseContext, R.drawable.ic_play)
         val pauseIcon = Icon.createWithResource(baseContext, R.drawable.ic_pause)
@@ -105,6 +108,13 @@ class MediaPlayerService : Service() {
         startForeground(100, notification)
     }
 
+    private fun initReceiver() {
+        val filter = IntentFilter().apply {
+            addAction(Intent.ACTION_BATTERY_LOW)
+        }
+        registerReceiver(receiver, filter)
+    }
+
     private fun createNotificationChannel() {
         val channel =
             NotificationChannel(CHANNEL_ID, "MEDIA_PLAYER", NotificationManager.IMPORTANCE_DEFAULT)
@@ -131,9 +141,20 @@ class MediaPlayerService : Service() {
                 mediaPlayer?.stop()
                 mediaPlayer?.release() // mediaPlayer 리소스 해제 ( Stop을 해도 리소스는 남아있음 )
                 mediaPlayer = null
-                stopSelf() // 서비스 중지 메서드 ( 이거 안하면 백그라운드에서 계속 실행이 됌 )
+                stopSelf() // 서비스 중지 메서드 ( 이거 안하면 백그라운드에서 계속 실행이 됌, 알림이 꺼짐 )
             }
         }
         return super.onStartCommand(intent, flags, startId)
+    }
+
+    override fun onDestroy() {
+        // 서비스 종료 됐을때 메모리 삭제
+        mediaPlayer?.apply {
+            stop()
+            release()
+        }
+        mediaPlayer = null
+        unregisterReceiver(receiver)
+        super.onDestroy()
     }
 }

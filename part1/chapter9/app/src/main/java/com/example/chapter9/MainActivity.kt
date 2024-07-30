@@ -58,4 +58,10 @@ class MainActivity : AppCompatActivity() {
             .apply { action = MEDIA_PLAYER_STOP } // 키 값을 넣어줘야함 ( Constants )
         startService(intent)
     }
+
+    override fun onDestroy() {
+        // 서비스 종료 됐을때 메모리 삭제
+        stopService(Intent(this, MediaPlayerService::class.java))
+        super.onDestroy()
+    }
 }
