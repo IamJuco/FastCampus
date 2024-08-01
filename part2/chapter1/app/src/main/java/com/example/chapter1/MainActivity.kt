@@ -7,20 +7,33 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.chapter1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         uiSetting()
 
-        val webView = findViewById<WebView>(R.id.webView)
-        webView.webViewClient = WebViewClient()
-        // XSS 취약성 ( 외부로부터 공격 받을 수 있음, 무시 해도 됌 )
-        webView.settings.javaScriptEnabled = true
+        val container = binding.fragmentContainer
 
-        webView.loadUrl("https://google.com")
+        binding.btn1.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragmentContainer, WebViewFragment())
+                commit()
+            }
+        }
+
+        binding.btn2.setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragmentContainer, WebViewFragment())
+                commit()
+            }
+        }
     }
 
     private fun uiSetting() {
