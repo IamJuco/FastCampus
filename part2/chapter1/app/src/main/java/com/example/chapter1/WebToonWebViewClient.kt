@@ -10,6 +10,8 @@ import android.widget.ProgressBar
 
 class WebToonWebViewClient(private val progressBar: ProgressBar) : WebViewClient() {
 
+
+
     override fun onPageFinished(view: WebView?, url: String?) {
         super.onPageFinished(view, url)
 
@@ -35,6 +37,16 @@ class WebToonWebViewClient(private val progressBar: ProgressBar) : WebViewClient
     ) {
         super.onReceivedError(view, request, error)
 
+    }
+
+ */
+
+/*
+
+    // return 값이 true = view가 로딩을 안함 ( 로딩이 되기직전에 불림 )
+    // false = view를 로드함
+    override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+        return false
     }
 
  */
