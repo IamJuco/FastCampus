@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">chapter3</string>
+    <string name="title_activity_text">TextActivity</string>
 </resources>
