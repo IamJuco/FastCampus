@@ -1,6 +1,7 @@
 package com.nemocompany.chapter3
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.nemocompany.chapter3.ui.ButtonExample
 import com.nemocompany.chapter3.ui.TextExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
@@ -24,9 +26,14 @@ class MainActivity : ComponentActivity() {
                 // 현재는 화면을 꽉 채울거냐, 에 따른 설정
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     TextExample(
+                        modifier = Modifier.padding(innerPadding),
                         name = "Android",
-                        modifier = Modifier.padding(innerPadding)
                     )
+                    ButtonExample(
+                        modifier = Modifier.padding(innerPadding),
+                        onButtonClicked =  {
+                        Toast.makeText(this, "Send Clicked", Toast.LENGTH_SHORT).show()
+                    })
                 }
             }
         }
@@ -43,6 +50,9 @@ fun GreetingPreview() {
                 name = "Android",
                 modifier = Modifier.padding(innerPadding)
             )
+            ButtonExample{
+
+            }
         }
     }
 }

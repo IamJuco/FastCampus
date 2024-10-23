@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TextExample(name: String, modifier: Modifier = Modifier) {
+fun TextExample(modifier: Modifier = Modifier, name: String) {
     Text(
         text = "안녕하세요 $name",
         fontSize = 20.sp,
