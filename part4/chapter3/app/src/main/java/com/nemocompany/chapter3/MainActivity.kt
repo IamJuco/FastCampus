@@ -31,9 +31,9 @@ class MainActivity : ComponentActivity() {
                     )
                     ButtonExample(
                         modifier = Modifier.padding(innerPadding),
-                        onButtonClicked =  {
-                        Toast.makeText(this, "Send Clicked", Toast.LENGTH_SHORT).show()
-                    })
+                        onButtonClicked = {
+                            Toast.makeText(this, "Send Clicked", Toast.LENGTH_SHORT).show()
+                        })
                 }
             }
         }
@@ -50,7 +50,9 @@ fun GreetingPreview() {
                 name = "Android",
                 modifier = Modifier.padding(innerPadding)
             )
-            ButtonExample{
+            ButtonExample(
+                modifier = Modifier.padding(innerPadding)
+            ) {
 
             }
         }
