@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter3.ui.ButtonExample
 import com.nemocompany.chapter3.ui.ModifierExample2
 import com.nemocompany.chapter3.ui.ModifierExample3
+import com.nemocompany.chapter3.ui.SurfaceExample
 import com.nemocompany.chapter3.ui.TextExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
@@ -43,6 +44,7 @@ class MainActivity : ComponentActivity() {
                             })
                         ModifierExample3(
                         )
+                        SurfaceExample()
                     }
                 }
             }
@@ -60,13 +62,9 @@ fun GreetingPreview() {
                 TextExample(
                     name = "Android",
                 )
-                ButtonExample(
-                ) {
-
-                }
-                ModifierExample3(
-
-                )
+                ButtonExample() {  }
+                ModifierExample3()
+                SurfaceExample()
             }
         }
     }
