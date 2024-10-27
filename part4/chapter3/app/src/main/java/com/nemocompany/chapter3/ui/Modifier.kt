@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun ModifierExample1(modifier: Modifier = Modifier) {
+fun ModifierExample1() {
 // height와 width를 각각 설정할 수 있음
     Button(
-        onClick = {}, modifier = modifier
+        onClick = {}, modifier = Modifier
             .height(100.dp)
             .width(200.dp)
     ) {
@@ -38,11 +38,11 @@ fun ModifierExample1(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun ModifierExample2(modifier: Modifier = Modifier) {
+fun ModifierExample2() {
     // size로 height와 width 설정 가능
     Button(
         onClick = {},
-        modifier = modifier
+        modifier = Modifier
             .size(200.dp, 100.dp)
             .padding(10.dp),
         // 버튼 background color와 text color 설정
@@ -56,15 +56,15 @@ fun ModifierExample2(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
         // 버튼 자체는 enable = false 해놓고 text를 클릭했을때 클릭이벤트 주기
         Text(text = "Search",
-            modifier = modifier.clickable { })
+            modifier = Modifier.clickable { })
     }
 }
 
 @Composable
-fun ModifierExample3(modifier: Modifier = Modifier) {
+fun ModifierExample3() {
     Button(
         onClick = {},
-        modifier = modifier
+        modifier = Modifier
             .size(200.dp, 100.dp)
             .padding(10.dp),
         colors = ButtonDefaults.buttonColors(
@@ -76,7 +76,7 @@ fun ModifierExample3(modifier: Modifier = Modifier) {
             imageVector = Icons.Filled.Search,
             contentDescription = null,
             // Icon의 background 색상 지정
-            modifier.background(Color.Black)
+            Modifier.background(Color.Black)
         )
         Spacer(
             modifier = Modifier
@@ -87,7 +87,7 @@ fun ModifierExample3(modifier: Modifier = Modifier) {
         Text(
             text = "Search",
             // text의 위치 조정 가능
-            modifier
+            Modifier
                 .offset(x = 10.dp)
                 .background(Color.Black)
         )

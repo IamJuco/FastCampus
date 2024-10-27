@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -27,18 +28,22 @@ class MainActivity : ComponentActivity() {
                 // Scaffold, modifier = 화면을 구성하는 큰 들 ( 부모 레이아웃 설정 )
                 // 현재는 화면을 꽉 채울거냐, 에 따른 설정
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TextExample(
-                        modifier = Modifier.padding(innerPadding),
-                        name = "Android",
-                    )
-                    ButtonExample(
-                        modifier = Modifier.padding(innerPadding),
-                        onButtonClicked = {
-                            Toast.makeText(this, "Send Clicked", Toast.LENGTH_SHORT).show()
-                        })
-                    ModifierExample3(
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    Column(modifier = Modifier.padding(innerPadding)) {
+                        TextExample(
+                            name = "Android",
+                        )
+                        ButtonExample(
+                            modifier = Modifier.padding(innerPadding),
+                            onButtonClicked = {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "Send Clicked",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            })
+                        ModifierExample3(
+                        )
+                    }
                 }
             }
         }
@@ -51,18 +56,18 @@ class MainActivity : ComponentActivity() {
 fun GreetingPreview() {
     Chapter3Theme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            TextExample(
-                name = "Android",
-                modifier = Modifier.padding(innerPadding)
-            )
-            ButtonExample(
-                modifier = Modifier.padding(innerPadding)
-            ) {
+            Column(modifier = Modifier.padding(innerPadding)) {
+                TextExample(
+                    name = "Android",
+                )
+                ButtonExample(
+                ) {
 
+                }
+                ModifierExample3(
+
+                )
             }
-            ModifierExample3(
-
-            )
         }
     }
 }
