@@ -12,8 +12,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.nemocompany.chapter3.ui.BoxExample1
+import com.nemocompany.chapter3.ui.BoxExample2
 import com.nemocompany.chapter3.ui.ButtonExample
-import com.nemocompany.chapter3.ui.ModifierExample2
 import com.nemocompany.chapter3.ui.ModifierExample3
 import com.nemocompany.chapter3.ui.SurfaceExample
 import com.nemocompany.chapter3.ui.TextExample
@@ -45,6 +46,9 @@ class MainActivity : ComponentActivity() {
                         ModifierExample3(
                         )
                         SurfaceExample()
+                        BoxExample1()
+                        BoxExample2()
+//                        BoxExample3()
                     }
                 }
             }
@@ -65,6 +69,9 @@ fun GreetingPreview() {
                 ButtonExample() {  }
                 ModifierExample3()
                 SurfaceExample()
+                BoxExample1()
+                BoxExample2()
+//                BoxExample3()
             }
         }
     }
