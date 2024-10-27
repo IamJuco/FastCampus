@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter3.ui.ButtonExample
+import com.nemocompany.chapter3.ui.ModifierExample2
+import com.nemocompany.chapter3.ui.ModifierExample3
 import com.nemocompany.chapter3.ui.TextExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
@@ -34,6 +36,9 @@ class MainActivity : ComponentActivity() {
                         onButtonClicked = {
                             Toast.makeText(this, "Send Clicked", Toast.LENGTH_SHORT).show()
                         })
+                    ModifierExample3(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
@@ -55,6 +60,9 @@ fun GreetingPreview() {
             ) {
 
             }
+            ModifierExample3(
+
+            )
         }
     }
 }
