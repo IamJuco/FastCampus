@@ -12,18 +12,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.nemocompany.chapter3.ui.BoxExample1
-import com.nemocompany.chapter3.ui.BoxExample2
-import com.nemocompany.chapter3.ui.ButtonExample
-import com.nemocompany.chapter3.ui.ColumnExample
-import com.nemocompany.chapter3.ui.ColumnExample2
-import com.nemocompany.chapter3.ui.ModifierExample3
-import com.nemocompany.chapter3.ui.RowExample
-import com.nemocompany.chapter3.ui.RowExample2
-import com.nemocompany.chapter3.ui.RowExample3
-import com.nemocompany.chapter3.ui.RowExample4
-import com.nemocompany.chapter3.ui.SurfaceExample
-import com.nemocompany.chapter3.ui.TextExample
+import com.nemocompany.chapter3.ui.main.BoxExample1
+import com.nemocompany.chapter3.ui.main.BoxExample2
+import com.nemocompany.chapter3.ui.main.ButtonExample
+import com.nemocompany.chapter3.ui.main.ColumnExample
+import com.nemocompany.chapter3.ui.main.ColumnExample2
+import com.nemocompany.chapter3.ui.main.ModifierExample3
+import com.nemocompany.chapter3.ui.main.RowExample
+import com.nemocompany.chapter3.ui.main.RowExample2
+import com.nemocompany.chapter3.ui.main.RowExample3
+import com.nemocompany.chapter3.ui.main.RowExample4
+import com.nemocompany.chapter3.ui.main.SurfaceExample
+import com.nemocompany.chapter3.ui.main.TextExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
 // 실제 적용되는 부분

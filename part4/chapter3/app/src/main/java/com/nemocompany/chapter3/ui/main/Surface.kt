@@ -1,4 +1,4 @@
-package com.nemocompany.chapter3.ui
+package com.nemocompany.chapter3.ui.main
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
