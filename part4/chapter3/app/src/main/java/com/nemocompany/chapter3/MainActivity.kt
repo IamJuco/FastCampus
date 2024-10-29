@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter3.ui.BoxExample1
 import com.nemocompany.chapter3.ui.BoxExample2
 import com.nemocompany.chapter3.ui.ButtonExample
+import com.nemocompany.chapter3.ui.ColumnExample
+import com.nemocompany.chapter3.ui.ColumnExample2
 import com.nemocompany.chapter3.ui.ModifierExample3
 import com.nemocompany.chapter3.ui.RowExample
 import com.nemocompany.chapter3.ui.RowExample2
@@ -84,6 +86,8 @@ fun GreetingPreview() {
                 RowExample2()
                 RowExample3()
                 RowExample4()
+                ColumnExample()
+                ColumnExample2()
             }
         }
     }
