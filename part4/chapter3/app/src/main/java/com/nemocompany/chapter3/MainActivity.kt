@@ -16,6 +16,10 @@ import com.nemocompany.chapter3.ui.BoxExample1
 import com.nemocompany.chapter3.ui.BoxExample2
 import com.nemocompany.chapter3.ui.ButtonExample
 import com.nemocompany.chapter3.ui.ModifierExample3
+import com.nemocompany.chapter3.ui.RowExample
+import com.nemocompany.chapter3.ui.RowExample2
+import com.nemocompany.chapter3.ui.RowExample3
+import com.nemocompany.chapter3.ui.RowExample4
 import com.nemocompany.chapter3.ui.SurfaceExample
 import com.nemocompany.chapter3.ui.TextExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
@@ -49,6 +53,10 @@ class MainActivity : ComponentActivity() {
                         BoxExample1()
                         BoxExample2()
 //                        BoxExample3()
+                        RowExample()
+                        RowExample2()
+                        RowExample3()
+                        RowExample4()
                     }
                 }
             }
@@ -72,6 +80,10 @@ fun GreetingPreview() {
                 BoxExample1()
                 BoxExample2()
 //                BoxExample3()
+                RowExample()
+                RowExample2()
+                RowExample3()
+                RowExample4()
             }
         }
     }
