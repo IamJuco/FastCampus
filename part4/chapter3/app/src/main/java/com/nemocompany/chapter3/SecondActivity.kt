@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter3.ui.main.ColumnExample
+import com.nemocompany.chapter3.ui.second.BoxWithConstraintsExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
 class SecondActivity : ComponentActivity() {
@@ -36,7 +37,7 @@ fun GreetingSecondPreview() {
     Chapter3Theme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)) {
-
+                BoxWithConstraintsExample()
             }
         }
     }
