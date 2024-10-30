@@ -11,14 +11,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.nemocompany.chapter3.ui.main.ColumnExample
 import com.nemocompany.chapter3.ui.second.BoxWithConstraintsExample
 import com.nemocompany.chapter3.ui.second.CardData
 import com.nemocompany.chapter3.ui.second.CheckBoxExample
 import com.nemocompany.chapter3.ui.second.CheckBoxExample2
 import com.nemocompany.chapter3.ui.second.CheckBoxExample3
 import com.nemocompany.chapter3.ui.second.ImageExample
-import com.nemocompany.chapter3.ui.second.NetworkImageExample
 import com.nemocompany.chapter3.ui.second.ProfileCardExample
 import com.nemocompany.chapter3.ui.second.TextFieldExample
 import com.nemocompany.chapter3.ui.second.TopAppBarExample
