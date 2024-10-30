@@ -13,8 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter3.ui.main.ColumnExample
 import com.nemocompany.chapter3.ui.second.BoxWithConstraintsExample
+import com.nemocompany.chapter3.ui.second.CardData
 import com.nemocompany.chapter3.ui.second.ImageExample
 import com.nemocompany.chapter3.ui.second.NetworkImageExample
+import com.nemocompany.chapter3.ui.second.ProfileCardExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
 class SecondActivity : ComponentActivity() {
@@ -25,11 +27,24 @@ class SecondActivity : ComponentActivity() {
             Chapter3Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-
+                        BoxWithConstraintsExample()
+                        ImageExample()
+//                NetworkImageExample()
+                        ProfileCardExample(cardData)
+                        ProfileCardExample(cardData)
                     }
                 }
             }
         }
+    }
+
+    companion object {
+        val cardData = CardData(
+            imageUrl = "https://www.nextdaily.co.kr/news/photo/201605/18968_23931.jpg",
+            imageDescription = "엔텔로프 캐년",
+            author = "주성현",
+            description = "엔텔로프 캐년은 죽기 전에 꼭 봐야할 절경"
+        )
     }
 }
 
@@ -41,7 +56,7 @@ fun GreetingSecondPreview() {
             Column(modifier = Modifier.padding(innerPadding)) {
                 BoxWithConstraintsExample()
                 ImageExample()
-                NetworkImageExample()
+//                NetworkImageExample()
             }
         }
     }
