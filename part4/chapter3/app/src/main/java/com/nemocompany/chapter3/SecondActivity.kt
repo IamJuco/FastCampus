@@ -21,6 +21,7 @@ import com.nemocompany.chapter3.ui.second.ImageExample
 import com.nemocompany.chapter3.ui.second.NetworkImageExample
 import com.nemocompany.chapter3.ui.second.ProfileCardExample
 import com.nemocompany.chapter3.ui.second.TextFieldExample
+import com.nemocompany.chapter3.ui.second.TopAppBarExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
 class SecondActivity : ComponentActivity() {
@@ -62,6 +63,7 @@ fun GreetingSecondPreview() {
     Chapter3Theme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)) {
+                TopAppBarExample()
                 BoxWithConstraintsExample()
                 ImageExample()
 //                NetworkImageExample()
