@@ -20,6 +20,7 @@ import com.nemocompany.chapter3.ui.second.CheckBoxExample3
 import com.nemocompany.chapter3.ui.second.ImageExample
 import com.nemocompany.chapter3.ui.second.NetworkImageExample
 import com.nemocompany.chapter3.ui.second.ProfileCardExample
+import com.nemocompany.chapter3.ui.second.TextFieldExample
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
 
 class SecondActivity : ComponentActivity() {
@@ -38,6 +39,7 @@ class SecondActivity : ComponentActivity() {
                         CheckBoxExample()
                         CheckBoxExample2()
                         CheckBoxExample3()
+                        TextFieldExample()
                     }
                 }
             }
@@ -63,6 +65,7 @@ fun GreetingSecondPreview() {
                 BoxWithConstraintsExample()
                 ImageExample()
 //                NetworkImageExample()
+                TextFieldExample()
             }
         }
     }
