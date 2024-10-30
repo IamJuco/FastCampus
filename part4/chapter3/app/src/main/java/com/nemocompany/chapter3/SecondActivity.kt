@@ -14,6 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter3.ui.main.ColumnExample
 import com.nemocompany.chapter3.ui.second.BoxWithConstraintsExample
 import com.nemocompany.chapter3.ui.second.CardData
+import com.nemocompany.chapter3.ui.second.CheckBoxExample
+import com.nemocompany.chapter3.ui.second.CheckBoxExample2
+import com.nemocompany.chapter3.ui.second.CheckBoxExample3
 import com.nemocompany.chapter3.ui.second.ImageExample
 import com.nemocompany.chapter3.ui.second.NetworkImageExample
 import com.nemocompany.chapter3.ui.second.ProfileCardExample
@@ -32,6 +35,9 @@ class SecondActivity : ComponentActivity() {
 //                NetworkImageExample()
                         ProfileCardExample(cardData)
                         ProfileCardExample(cardData)
+                        CheckBoxExample()
+                        CheckBoxExample2()
+                        CheckBoxExample3()
                     }
                 }
             }
