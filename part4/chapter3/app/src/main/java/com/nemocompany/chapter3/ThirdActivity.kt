@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter3.ui.theme.Chapter3Theme
+import com.nemocompany.chapter3.ui.third.ScaffoldExample
 import com.nemocompany.chapter3.ui.third.SlotApiExample
 
 class ThirdActivity : ComponentActivity() {
@@ -23,6 +24,7 @@ class ThirdActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
                         SlotApiExample()
+                        ScaffoldExample()
                     }
                 }
             }
