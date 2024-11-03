@@ -51,6 +51,9 @@ android {
 
 dependencies {
 
+    // Compose Constraintlayout
+    implementation ("androidx.constraintlayout:constraintlayout-compose:1.1.0")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
