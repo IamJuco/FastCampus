@@ -25,7 +25,9 @@ fun SnackbarExample() {
     val coroutineScope = rememberCoroutineScope()
 
     // rememberScaffoldState() 가 사라짐
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
 
     Scaffold(snackbarHost = { SnackbarHost(hostState = snackbarHostState) }) { innerPadding ->
         Button(onClick = {
