@@ -12,8 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter4.ui.theme.Chapter4Theme
+import com.nemocompany.chapter4.ui.third.CardData
 import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample
 import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample2
+import com.nemocompany.chapter4.ui.third.ConstraintLayoutHardExample
 
 class ThirdActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,12 +25,23 @@ class ThirdActivity : ComponentActivity() {
             Chapter4Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        ChainAndBarrierExample()
-                        ChainAndBarrierExample2()
+//                        ChainAndBarrierExample()
+//                        ChainAndBarrierExample2()
+                        ConstraintLayoutHardExample(cardData)
+                        ConstraintLayoutHardExample(cardData)
                     }
                 }
             }
         }
+    }
+
+    companion object {
+        val cardData = CardData(
+            imageUrl = "https://www.nextdaily.co.kr/news/photo/201605/18968_23931.jpg",
+            imageDescription = "엔텔로프 캐년",
+            author = "주성현",
+            description = "엔텔로프 캐년은 죽기 전에 꼭 봐야할 절경"
+        )
     }
 }
 
