@@ -17,6 +17,7 @@ import com.nemocompany.chapter4.ui.third.CardData
 import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample
 import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample2
 import com.nemocompany.chapter4.ui.third.ConstraintLayoutHardExample
+import com.nemocompany.chapter4.ui.third.CustomDialogExample
 import com.nemocompany.chapter4.ui.third.DialogExample
 
 class ThirdActivity : ComponentActivity() {
@@ -39,6 +40,7 @@ class ThirdActivity : ComponentActivity() {
                         // 얘는 실행해서 보려면 줌을 크게 확대해야함
                         CanvasExample()
                         DialogExample()
+                        CustomDialogExample()
                     }
                 }
             }
@@ -62,7 +64,8 @@ fun GreetingPreview3() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)) {
 //                ChainAndBarrierExample()
-                ChainAndBarrierExample2()
+//                ChainAndBarrierExample2()
+                CustomDialogExample()
             }
         }
     }
