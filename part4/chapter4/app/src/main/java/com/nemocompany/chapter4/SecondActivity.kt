@@ -11,10 +11,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.nemocompany.chapter4.ui.main.ConstraintLayoutExample
+import com.nemocompany.chapter4.ui.second.ConstraintSetExample
 import com.nemocompany.chapter4.ui.theme.Chapter4Theme
 
-class MainActivity : ComponentActivity() {
+class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
             Chapter4Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-                        ConstraintLayoutExample()
+                        ConstraintSetExample()
                     }
                 }
             }
@@ -32,11 +32,11 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun GreetingPreview2() {
     Chapter4Theme {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)) {
-                ConstraintLayoutExample()
+                ConstraintSetExample()
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.nemocompany.chapter4.ui
+package com.nemocompany.chapter4.ui.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
