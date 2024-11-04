@@ -20,6 +20,7 @@ import com.nemocompany.chapter4.ui.third.ConstraintLayoutHardExample
 import com.nemocompany.chapter4.ui.third.CustomDialogExample
 import com.nemocompany.chapter4.ui.third.DialogExample
 import com.nemocompany.chapter4.ui.third.DropDownExample
+import com.nemocompany.chapter4.ui.third.SnackbarExample
 
 class ThirdActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +44,7 @@ class ThirdActivity : ComponentActivity() {
                         DialogExample()
                         CustomDialogExample()
                         DropDownExample()
+                        SnackbarExample()
                     }
                 }
             }
@@ -69,6 +71,7 @@ fun GreetingPreview3() {
 //                ChainAndBarrierExample2()
                 CustomDialogExample()
                 DropDownExample()
+                SnackbarExample()
             }
         }
     }
