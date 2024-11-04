@@ -19,6 +19,7 @@ import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample2
 import com.nemocompany.chapter4.ui.third.ConstraintLayoutHardExample
 import com.nemocompany.chapter4.ui.third.CustomDialogExample
 import com.nemocompany.chapter4.ui.third.DialogExample
+import com.nemocompany.chapter4.ui.third.DropDownExample
 
 class ThirdActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +42,7 @@ class ThirdActivity : ComponentActivity() {
                         CanvasExample()
                         DialogExample()
                         CustomDialogExample()
+                        DropDownExample()
                     }
                 }
             }
@@ -66,6 +68,7 @@ fun GreetingPreview3() {
 //                ChainAndBarrierExample()
 //                ChainAndBarrierExample2()
                 CustomDialogExample()
+                DropDownExample()
             }
         }
     }
