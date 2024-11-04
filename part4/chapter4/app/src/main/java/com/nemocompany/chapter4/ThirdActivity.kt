@@ -17,6 +17,7 @@ import com.nemocompany.chapter4.ui.third.CardData
 import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample
 import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample2
 import com.nemocompany.chapter4.ui.third.ConstraintLayoutHardExample
+import com.nemocompany.chapter4.ui.third.DialogExample
 
 class ThirdActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,7 @@ class ThirdActivity : ComponentActivity() {
                         // 테스트 해볼땐 얘네들만 주석 풀어야함 나머지는 주석
                         // 얘는 실행해서 보려면 줌을 크게 확대해야함
                         CanvasExample()
+                        DialogExample()
                     }
                 }
             }
