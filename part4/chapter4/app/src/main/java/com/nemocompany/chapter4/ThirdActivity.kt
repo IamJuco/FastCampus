@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.chapter4.ui.theme.Chapter4Theme
+import com.nemocompany.chapter4.ui.third.BottomAppBarExample
 import com.nemocompany.chapter4.ui.third.CanvasExample
 import com.nemocompany.chapter4.ui.third.CardData
 import com.nemocompany.chapter4.ui.third.ChainAndBarrierExample
@@ -44,7 +45,10 @@ class ThirdActivity : ComponentActivity() {
                         DialogExample()
                         CustomDialogExample()
                         DropDownExample()
-                        SnackbarExample()
+                        //BottomAppBarExample를 실행하려면 SnackbarExample을 주석처리해야함
+                        //SnackbarExample에서 Scaffold 사용하고있어서 작동을 안함
+//                        SnackbarExample()
+                        BottomAppBarExample()
                     }
                 }
             }
@@ -71,7 +75,8 @@ fun GreetingPreview3() {
 //                ChainAndBarrierExample2()
                 CustomDialogExample()
                 DropDownExample()
-                SnackbarExample()
+//                SnackbarExample()
+                BottomAppBarExample()
             }
         }
     }
