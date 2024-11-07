@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.nemocompany.chapter5.ui.TopLevel2
+import com.nemocompany.chapter5.ui.main.TopLevel2
 import com.nemocompany.chapter5.ui.theme.Chapter5Theme
 
 class MainActivity : ComponentActivity() {
