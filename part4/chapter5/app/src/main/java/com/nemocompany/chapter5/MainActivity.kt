@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.nemocompany.chapter5.ui.TopLevel
+import com.nemocompany.chapter5.ui.TopLevel2
 import com.nemocompany.chapter5.ui.theme.Chapter5Theme
 
 class MainActivity : ComponentActivity() {
@@ -29,13 +29,19 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        TopLevel()
+                        TopLevel2()
                     }
                 }
             }
         }
     }
 }
+
+data class ToDoData(
+    val key: Int,
+    val text: String,
+    val done: Boolean = false
+)
 
 
 
