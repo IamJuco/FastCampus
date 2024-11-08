@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -50,6 +52,38 @@ android {
 }
 
 dependencies {
+
+    // Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.8.3")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
+    ksp("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
+
+    // Okhttp3
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+
+    // Gson
+    implementation ("com.google.code.gson:gson:2.11.0")
+
+    // Coil
+    implementation("io.coil-kt.coil3:coil-compose:3.0.1")
+
+    // Timber - Log 관련 라이브러리
+    implementation ("com.jakewharton.timber:timber:5.0.1")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+
+    // Lifecycle - Java8을 쓸때 라이프사이클 컴파일러 대신 사용
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.8.7")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
