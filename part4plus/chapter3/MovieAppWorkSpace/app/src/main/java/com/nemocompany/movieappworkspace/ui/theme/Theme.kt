@@ -9,9 +9,11 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.nemocompany.movieappworkspace.ui.theme.color.ColorSet
+import com.nemocompany.movieappworkspace.ui.theme.color.MyColors
 
 private val LocalColors = staticCompositionLocalOf { ColorSet.Red.lightColors }
 
@@ -44,3 +46,9 @@ fun MovieAppWorkSpaceTheme(
         )
     }
 }
+
+// 강의에선 써야하지만 이미 Material3 에서 colorScheme을 쓰고 있기에 안쓰고 colorScheme으로 대체
+val MaterialTheme.colorSchemes: MyColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColors.current

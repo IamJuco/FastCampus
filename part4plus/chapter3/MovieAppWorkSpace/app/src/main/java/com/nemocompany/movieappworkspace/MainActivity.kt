@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.movieappworkspace.ui.components.movie.MovieItem
+import com.nemocompany.movieappworkspace.ui.components.movie.buttons.PrimaryButton
 import com.nemocompany.movieappworkspace.ui.theme.MovieAppWorkSpaceTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,10 +22,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieAppWorkSpaceTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+//                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier.padding(innerPadding)
+//                    )
+                    PrimaryButton(
+                        text = "Submit",
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    ) {
+
+                    }
                 }
             }
         }

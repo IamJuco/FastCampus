@@ -83,22 +83,23 @@ val Typography = Typography(
     )
 )
 
+// 강의에선 button을 copy하여 최신버전에 맞게 Typography값 수정
 val Typography.h5Title: TextStyle
     @Composable get() = headlineMedium.copy(
         fontSize = 24.sp
     )
 
 val Typography.dialogButton: TextStyle
-    @Composable get() = dialogButton.copy(
+    @Composable get() = labelLarge.copy(
         fontSize = 18.sp
     )
 
 val Typography.underlinedDialogButton: TextStyle
-    @Composable get() = underlinedDialogButton.copy(
+    @Composable get() = labelLarge.copy(
         textDecoration = TextDecoration.Underline
     )
 
 val Typography.underlinedButton: TextStyle
-    @Composable get() = underlinedButton.copy(
+    @Composable get() = labelLarge.copy(
         textDecoration = TextDecoration.Underline
     )

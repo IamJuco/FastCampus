@@ -20,7 +20,7 @@ fun CategoryRow() {
         LazyRow(
             // 아이템들 간의 간격 padding 조정
             contentPadding = PaddingValues(
-                horizontal = 10.dp
+                horizontal = Paddings.large
             )
         ) {
             item {

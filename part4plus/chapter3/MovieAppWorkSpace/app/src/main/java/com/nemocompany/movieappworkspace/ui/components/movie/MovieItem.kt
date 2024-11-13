@@ -83,7 +83,7 @@ fun Poster(
     modifier: Modifier
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(200.dp),
         colors = CardDefaults.cardColors(
