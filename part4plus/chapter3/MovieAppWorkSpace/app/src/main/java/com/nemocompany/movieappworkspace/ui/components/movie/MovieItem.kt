@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,15 +25,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nemocompany.movieappworkspace.R
+import com.nemocompany.movieappworkspace.ui.theme.Paddings
 
 private val CARD_WIDTH = 150.dp
+private val ICON_SIZE = 12.dp
 
 @Composable
 fun MovieItem() {
     Column(
         modifier = Modifier
             .width(CARD_WIDTH)
-            .padding(10.dp)
+            .padding(Paddings.large)
     ) {
         Poster(
             modifier = Modifier.width(CARD_WIDTH)
@@ -44,17 +47,20 @@ fun MovieItem() {
             // 텍스트가 주어진 공간보다 더 길경우 어떻게 보여질지
             // 화면 크기또는 텍스트 크기에따른 예외처리
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(top = 11.dp)
+            modifier = Modifier.padding(
+                top = Paddings.large
+            ),
+            style = MaterialTheme.typography.bodyMedium
         )
 
         Row(
-            modifier = Modifier.padding(vertical = 10.dp),
+            modifier = Modifier.padding(vertical = Paddings.medium),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 modifier = Modifier
-                    .padding(12.dp)
-                    .size(12.dp),
+                    .padding(Paddings.small)
+                    .size(ICON_SIZE),
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_rating),
                 tint = Color.Black.copy(
                     alpha = 0.5f
@@ -62,7 +68,11 @@ fun MovieItem() {
                 contentDescription = "rating icon"
             )
             Text(
-                text = "5.0"
+                text = "5.0",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(
+                    alpha = 0.5f
+                )
             )
         }
     }
