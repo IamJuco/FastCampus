@@ -3,6 +3,8 @@ package com.nemocompany.movieappworkspace.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.Typography
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -15,7 +17,9 @@ private val LocalColors = staticCompositionLocalOf { ColorSet.Red.lightColors }
 
 @Composable
 fun MovieAppWorkSpaceTheme(
-    myColors: ColorSet,
+    myColors: ColorSet = ColorSet.Red,
+    typography: Typography = Typography,
+    shapes: Shapes = Shapes,
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
@@ -34,8 +38,9 @@ fun MovieAppWorkSpaceTheme(
     CompositionLocalProvider(LocalColors provides currentColors) {
         MaterialTheme(
             colorScheme = currentColors.colorScheme,
-            typography = Typography,
-            content = content
+            typography = typography,
+            content = content,
+            shapes = shapes
         )
     }
 }
