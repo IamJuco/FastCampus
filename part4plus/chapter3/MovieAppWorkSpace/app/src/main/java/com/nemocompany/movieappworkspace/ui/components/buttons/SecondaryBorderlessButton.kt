@@ -1,4 +1,4 @@
-package com.nemocompany.movieappworkspace.ui.components.movie.buttons
+package com.nemocompany.movieappworkspace.ui.components.buttons
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke

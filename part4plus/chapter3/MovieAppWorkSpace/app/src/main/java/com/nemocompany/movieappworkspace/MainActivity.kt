@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nemocompany.movieappworkspace.ui.components.movie.MovieItem
-import com.nemocompany.movieappworkspace.ui.components.movie.buttons.PrimaryButton
+import com.nemocompany.movieappworkspace.ui.components.buttons.PrimaryButton
 import com.nemocompany.movieappworkspace.ui.theme.MovieAppWorkSpaceTheme
 
 class MainActivity : ComponentActivity() {
