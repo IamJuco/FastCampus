@@ -35,7 +35,9 @@ fun UnderlinedTextButton(
             contentColor = MaterialTheme.colorScheme.secondary,
             disabledContentColor = MaterialTheme.colorScheme.background,
             disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer
-        )
+        ),
+        // Button의 elevation을 없애면 버튼 틀이 사라진다.
+        elevation = null
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
