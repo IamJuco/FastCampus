@@ -41,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true // BuildConfig의 DEBUG 모드를 사용하기위해 추가해줘야함
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
