@@ -53,7 +53,7 @@ android {
 dependencies {
     // Coil
     implementation("io.coil-kt.coil3:coil-compose:3.0.2")
-    // Navigation
+    // Navigation ( compose가 아닌 xml을 사용 )
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
     implementation("androidx.navigation:navigation-dynamic-features-fragment:2.8.4")
