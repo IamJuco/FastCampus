@@ -55,6 +55,7 @@ android {
 dependencies {
     // Coil
     implementation("io.coil-kt.coil3:coil-compose:3.0.2")
+
     // Navigation ( compose가 아닌 xml을 사용 )
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
@@ -64,6 +65,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
     ksp("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    // Timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
