@@ -1,13 +1,13 @@
-package kr.co.fastcampus.part4plus.movieapp.features.common.di
+package com.nemocompany.movieappworkspace.features.common.di
 
+import com.nemocompany.movieappworkspace.features.common.network.api.IMovieAppNetworkApi
+import com.nemocompany.movieappworkspace.features.common.network.api.MovieAppNetworkApi
+import com.nemocompany.movieappworkspace.features.common.repository.IMovieDataSource
+import com.nemocompany.movieappworkspace.features.common.repository.MovieRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kr.co.fastcampus.part4plus.movieapp.features.common.network.api.IMovieAppNetworkApi
-import kr.co.fastcampus.part4plus.movieapp.features.common.network.api.MovieAppNetworkApi
-import kr.co.fastcampus.part4plus.movieapp.features.common.repository.IMovieDataSource
-import kr.co.fastcampus.part4plus.movieapp.features.common.repository.MovieRepository
 import javax.inject.Singleton
 
 @Module

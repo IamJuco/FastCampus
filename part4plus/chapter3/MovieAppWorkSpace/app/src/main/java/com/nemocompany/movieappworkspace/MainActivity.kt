@@ -18,9 +18,11 @@ import androidx.core.view.updatePadding
 import com.nemocompany.movieappworkspace.ui.components.movie.MovieItem
 import com.nemocompany.movieappworkspace.ui.components.buttons.PrimaryButton
 import com.nemocompany.movieappworkspace.ui.theme.MovieAppWorkSpaceTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 //Compose Empty View로 프로젝트를 시작했는데 MainActivity를
 // AppCompatActivity로 바꾸면서 Themes 값을 변경 해줘야함
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
