@@ -107,9 +107,9 @@ fun Poster(
                 ImageRequest.Builder(LocalContext.current)
                     .data(data = thumbnailMovie.thumbUrl)
                     .listener(
-                        onStart = { Timber.tag("0526").d("이미지 로드 중") },
-                        onSuccess = { _, _ -> Timber.tag("0526").d("이미지 로드 성공") },
-                        onError = { request, throwable ->  Timber.tag("0526").e(throwable.toString(), "이미지 로드 실패: ${request.data}") }
+//                        onStart = { Timber.tag("0526").d("이미지 로드 중") },
+//                        onSuccess = { _, _ -> Timber.tag("0526").d("이미지 로드 성공") },
+//                        onError = { request, throwable ->  Timber.tag("0526").e(throwable.toString(), "이미지 로드 실패: ${request.data}") }
                     )
                     .apply {
                         crossfade(true)
