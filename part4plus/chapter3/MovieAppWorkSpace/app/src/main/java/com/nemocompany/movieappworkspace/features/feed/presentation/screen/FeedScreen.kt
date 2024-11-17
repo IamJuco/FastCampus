@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -23,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -47,40 +50,46 @@ import timber.log.Timber
 
 val COMMON_HORIZONTAL_PADDING = Paddings.medium
 
-@OptIn(ExperimentalMaterial3Api::class) // TopAppBar가 Material3 에서 제거될 가능성이있어서 추가
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedScreen(
     feedStateHolder: State<FeedState>,
     input: IFeedViewModelInput,
-//    buttonColor: State<Color>,
-//    changeAppColor: () -> Unit
+    buttonColor: State<Color>,
+    changeAppColor: () -> Unit
 ) {
-//    val btnColor by remember { buttonColor }
+    val btnColor by remember { buttonColor }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
                     .requiredHeight(70.dp)
                     // TopAppBar의 elevation이 사라졌으므로 shadow로 대체
                     .shadow(0.dp),
                 title = {
                     Text(
-                        modifier = Modifier.padding(
-                            start = COMMON_HORIZONTAL_PADDING
-                        ),
+                        modifier = Modifier
+                            .padding(
+                                start = COMMON_HORIZONTAL_PADDING,
+                            )
+                            // 강의와다름, Text가 중앙,왼쪽에 정렬이 안되어있어서 수정
+                            .fillMaxHeight() // TopBar의 전체 높이만큼 채움
+                            .wrapContentHeight(Alignment.CenterVertically), // 수직 중앙 정렬
                         text = stringResource(id = R.string.app_name),
                         style = MaterialTheme.typography.displaySmall
                     )
                 },
                 actions = {
-//                    AppBarMenu(
-//                        btnColor = btnColor,
-//                        changeAppColor = changeAppColor,
-//                        input = input
-//                    )
-                }
+                    AppBarMenu(
+                        btnColor = btnColor,
+                        changeAppColor = changeAppColor,
+                        input = input
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             )
         }
     ) { innerPadding ->
@@ -100,9 +109,13 @@ fun AppBarMenu(
     input: IFeedViewModelInput
 ) {
     Row(
-        modifier = Modifier.padding(
-            end = COMMON_HORIZONTAL_PADDING
-        )
+        modifier = Modifier
+            .padding(
+                end = COMMON_HORIZONTAL_PADDING
+            )
+            // 강의와다름 아이콘이 중앙에 안왔음
+            .fillMaxHeight(), // AppBar 높이에 맞춤
+        verticalAlignment = Alignment.CenterVertically // 수직 중앙 정렬
     ) {
         IconButton(
             onClick = {
@@ -141,10 +154,10 @@ fun BodyContent(
         is FeedState.Loading -> {
             Timber.d("MoviesScreen: Loading")
             Box(
-                modifier = Modifier.fillMaxSize()
+                modifier = modifier.fillMaxSize()
             ) {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = modifier.align(Alignment.Center)
                 )
             }
         }
@@ -152,7 +165,7 @@ fun BodyContent(
         is FeedState.Main -> {
             Timber.d("MoviesScreen: Success")
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = modifier.fillMaxSize()
             ) {
                 itemsIndexed(feedState.categories) { _, category ->
                     CategoryRow(

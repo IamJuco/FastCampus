@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.nemocompany.movieappworkspace.BaseFragment
 import com.nemocompany.movieappworkspace.features.detail.presentation.output.DetailUiEffect
 import com.nemocompany.movieappworkspace.features.detail.presentation.screen.MovieDetailScreen
 import com.nemocompany.movieappworkspace.features.detail.presentation.viewmodel.MovieDetailViewModel
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment() {
     private val viewModel: MovieDetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
 
@@ -38,7 +39,9 @@ class DetailFragment : Fragment() {
         init()
         return ComposeView(requireActivity()).apply {
             setContent {
-                MovieAppWorkSpaceTheme {
+                MovieAppWorkSpaceTheme(
+                    themeState = themeViewModel.themeState.collectAsState()
+                ) {
                     MovieDetailScreen(
                         movieDetailState = viewModel.outputs.detailState.collectAsState(),
                         input = viewModel.inputs

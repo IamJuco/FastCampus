@@ -65,7 +65,11 @@ class FeedViewModel @Inject constructor(
     }
 
     override fun openInfoDialog() {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            _feedUiEffect.emit(
+                FeedUiEffect.OpenInfoDialog
+            )
+        }
     }
 
     override fun refreshFeed() {

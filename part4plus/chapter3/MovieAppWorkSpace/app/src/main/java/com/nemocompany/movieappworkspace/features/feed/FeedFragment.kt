@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.nemocompany.movieappworkspace.BaseFragment
 import com.nemocompany.movieappworkspace.features.feed.presentation.output.FeedUiEffect
 import com.nemocompany.movieappworkspace.features.feed.presentation.screen.FeedScreen
 import com.nemocompany.movieappworkspace.features.feed.presentation.viewmodel.FeedViewModel
@@ -22,7 +23,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FeedFragment : Fragment() {
+class FeedFragment : BaseFragment() {
 
     private val viewModel: FeedViewModel by viewModels()
 
@@ -34,10 +35,14 @@ class FeedFragment : Fragment() {
         observeUiEffects()
         return ComposeView(requireActivity()).apply {
             setContent {
-                MovieAppWorkSpaceTheme {
+                MovieAppWorkSpaceTheme(
+                    themeState = themeViewModel.themeState.collectAsState()
+                ) {
                     FeedScreen(
                         feedStateHolder = viewModel.output.feedState.collectAsState(),
-                        input = viewModel.input
+                        input = viewModel.input,
+                        buttonColor = themeViewModel.nextColorState.collectAsState(),
+                        changeAppColor = { themeViewModel.toggleColorSet() }
                     )
                 }
             }
@@ -57,9 +62,9 @@ class FeedFragment : Fragment() {
                         }
 
                         is FeedUiEffect.OpenInfoDialog -> {
-//                            navController.safeNavigate(
-//                                FeedFragmentDirections.actionFeedToInfo()
-//                            )
+                            navController.safeNavigate(
+                                FeedFragmentDirections.actionFeedToInfo()
+                            )
                         }
                     }
                 }

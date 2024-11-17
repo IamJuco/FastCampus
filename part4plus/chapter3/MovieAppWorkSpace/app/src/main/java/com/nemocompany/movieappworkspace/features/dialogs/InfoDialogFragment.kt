@@ -16,6 +16,7 @@ import com.nemocompany.movieappworkspace.ui.components.dialog.Alert
 import com.nemocompany.movieappworkspace.ui.components.dialog.DialogPopup
 import com.nemocompany.movieappworkspace.ui.models.dialog.DialogButton
 import com.nemocompany.movieappworkspace.ui.theme.MovieAppWorkSpaceTheme
+import timber.log.Timber
 
 @AndroidEntryPoint
 class InfoDialogFragment : BaseDialogFragment() {
@@ -35,7 +36,7 @@ class InfoDialogFragment : BaseDialogFragment() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MovieAppWorkSpaceTheme(
-//                    themeState = themeViewModel.themeState.collectAsState()
+                   themeState = themeViewModel.themeState.collectAsState()
                 ) {
                     DialogPopup.Alert(
                         title = stringResource(R.string.app_name),
@@ -46,6 +47,7 @@ class InfoDialogFragment : BaseDialogFragment() {
                             }
                         )
                     )
+                    Timber.tag("0526").d(DialogPopup.toString())
                 }
             }
         }

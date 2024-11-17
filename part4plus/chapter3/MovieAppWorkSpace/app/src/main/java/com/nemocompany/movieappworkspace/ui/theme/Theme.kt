@@ -1,17 +1,16 @@
 package com.nemocompany.movieappworkspace.ui.theme
 
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
-import androidx.compose.material3.Typography
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.platform.LocalContext
+import com.nemocompany.movieappworkspace.ui.config.ComponentConfig
+import com.nemocompany.movieappworkspace.ui.config.DefaultComponentConfig
 import com.nemocompany.movieappworkspace.ui.theme.color.ColorSet
 import com.nemocompany.movieappworkspace.ui.theme.color.MyColors
 
@@ -19,30 +18,38 @@ private val LocalColors = staticCompositionLocalOf { ColorSet.Red.lightColors }
 
 @Composable
 fun MovieAppWorkSpaceTheme(
-    myColors: ColorSet = ColorSet.Red,
-    typography: Typography = Typography,
-    shapes: Shapes = Shapes,
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+//    myColors: ColorSet = ColorSet.Red,
+//    typography: Typography = Typography,
+//    shapes: Shapes = Shapes,
+//    darkTheme: Boolean = isSystemInDarkTheme(),
+//    dynamicColor: Boolean = true,
+//    content: @Composable () -> Unit
+    themeState: State<ComponentConfig> = mutableStateOf(
+        DefaultComponentConfig.RED_THEME
+    ),
     content: @Composable () -> Unit
 ) {
-    val currentColors = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            // dynamicColor를 지원하지 않는 강의여서 삭제
-//            val context = LocalContext.current
-            if (darkTheme) myColors.darkColors else myColors.lightColors
-        }
+    val myTheme by remember {
+        themeState
+    }
 
-        darkTheme -> myColors.darkColors
-        else -> myColors.lightColors
+    val currentColors = when {
+//        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+//            // dynamicColor를 지원하지 않는 강의여서 삭제
+////            val context = LocalContext.current
+//            if (myTheme.isDarkTheme) myTheme.colors.darkColors else myTheme.colors.lightColors
+//        }
+
+        myTheme.isDarkTheme -> myTheme.colors.darkColors
+        else -> myTheme.colors.lightColors
     }
 
     CompositionLocalProvider(LocalColors provides currentColors) {
         MaterialTheme(
             colorScheme = currentColors.colorScheme,
-            typography = typography,
+            typography = myTheme.typography,
             content = content,
-            shapes = shapes
+            shapes = myTheme.shapes
         )
     }
 }
