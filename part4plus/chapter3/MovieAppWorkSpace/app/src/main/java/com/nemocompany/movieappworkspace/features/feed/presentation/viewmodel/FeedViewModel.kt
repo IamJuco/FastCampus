@@ -21,6 +21,9 @@ class FeedViewModel @Inject constructor(
     private val getFeedCategoryUseCase: IGetFeedCategoryUseCase
 ) : ViewModel(), IFeedViewModelOutput, IFeedViewModelInput {
 
+    val output: IFeedViewModelOutput = this
+    val input: IFeedViewModelInput = this
+
     // 화면에 보여주기 위한 Flow
     private val _feedState: MutableStateFlow<FeedState> =
         MutableStateFlow(FeedState.Loading) // 모든 첫 상태는 Loading을 보여줄것임

@@ -1,5 +1,7 @@
 package com.nemocompany.movieappworkspace.ui.components.movie
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,29 +22,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.rememberAsyncImagePainter
+import coil3.request.ImageRequest
+import coil3.request.crossfade
+import coil3.size.Scale
 import com.nemocompany.movieappworkspace.R
+import com.nemocompany.movieappworkspace.features.common.entity.MovieFeedItemEntity
+import com.nemocompany.movieappworkspace.features.feed.presentation.input.IFeedViewModelInput
 import com.nemocompany.movieappworkspace.ui.theme.Paddings
+import timber.log.Timber
 
 private val CARD_WIDTH = 150.dp
 private val ICON_SIZE = 12.dp
 
 @Composable
-fun MovieItem() {
+fun MovieItem(
+    movie: MovieFeedItemEntity,
+    input: IFeedViewModelInput
+) {
     Column(
         modifier = Modifier
             .width(CARD_WIDTH)
             .padding(Paddings.large)
     ) {
         Poster(
-            modifier = Modifier.width(CARD_WIDTH)
+            input = input,
+            thumbnailMovie = movie
         )
 
         Text(
-            text = "The Lord The Ring 1",
+            text = movie.title,
             maxLines = 1,
             // 텍스트가 주어진 공간보다 더 길경우 어떻게 보여질지
             // 화면 크기또는 텍스트 크기에따른 예외처리
@@ -68,7 +82,7 @@ fun MovieItem() {
                 contentDescription = "rating icon"
             )
             Text(
-                text = "5.0",
+                text = "${movie.rating}",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(
                     alpha = 0.5f
@@ -80,26 +94,33 @@ fun MovieItem() {
 
 @Composable
 fun Poster(
-    modifier: Modifier
+    input: IFeedViewModelInput,
+    thumbnailMovie: MovieFeedItemEntity
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(200.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
-        )
+        onClick = {
+            input.openDetail(thumbnailMovie.title)
+        }
     ) {
-        Box(
+        Image(
+            painter = rememberAsyncImagePainter(
+                ImageRequest.Builder(LocalContext.current)
+                    .data(data = thumbnailMovie.thumbUrl)
+                    .listener(
+                        onStart = { Timber.tag("0526").d("이미지 로드 중") },
+                        onSuccess = { _, _ -> Timber.tag("0526").d("이미지 로드 성공") },
+                        onError = { request, throwable ->  Timber.tag("0526").e(throwable.toString(), "이미지 로드 실패: ${request.data}") }
+                    )
+                    .apply {
+                        crossfade(true)
+                        scale(Scale.FILL)
+                    }.build()
+            ),
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Blue)
+                .width(CARD_WIDTH)
+                .height(200.dp),
+            contentDescription = "Movie Poster Image"
         )
+//        Timber.tag("ImageLoad").d(thumbnailMovie.thumbUrl)
     }
-}
-
-@Preview
-@Composable
-fun MovieItemPreview() {
-    MovieItem()
 }
