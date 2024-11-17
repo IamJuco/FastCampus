@@ -27,7 +27,7 @@ fun UnderlinedTextButton(
     onClick: () -> Unit
 ) {
     Button(
-        onClick = {},
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
         colors = ButtonDefaults.buttonColors(
