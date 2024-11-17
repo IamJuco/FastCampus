@@ -22,7 +22,6 @@ class FeedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getMovie()
         return ComposeView(requireActivity()).apply {
             setContent {
                 MovieAppWorkSpaceTheme {

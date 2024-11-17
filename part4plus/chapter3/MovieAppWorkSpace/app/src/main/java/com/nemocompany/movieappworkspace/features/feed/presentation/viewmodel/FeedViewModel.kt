@@ -2,7 +2,8 @@ package com.nemocompany.movieappworkspace.features.feed.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nemocompany.movieappworkspace.features.common.repository.IMovieDataSource
+import com.nemocompany.movieappworkspace.features.common.entity.EntityWrapper
+import com.nemocompany.movieappworkspace.features.feed.domain.usecase.IGetFeedCategoryUseCase
 import com.nemocompany.movieappworkspace.features.feed.presentation.input.IFeedViewModelInput
 import com.nemocompany.movieappworkspace.features.feed.presentation.output.FeedState
 import com.nemocompany.movieappworkspace.features.feed.presentation.output.FeedUiEffect
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val movieRepository: IMovieDataSource,
+    private val getFeedCategoryUseCase: IGetFeedCategoryUseCase
 ) : ViewModel(), IFeedViewModelOutput, IFeedViewModelInput {
 
     // 화면에 보여주기 위한 Flow
@@ -29,9 +30,26 @@ class FeedViewModel @Inject constructor(
     private val _feedUiEffect = MutableSharedFlow<FeedUiEffect>(replay = 0)
     override val feedUiEffect: SharedFlow<FeedUiEffect> get() = _feedUiEffect
 
-    fun getMovie() {
+    init {
+        fetchFeed()
+    }
+
+    private fun fetchFeed() {
         viewModelScope.launch {
-            movieRepository.getMovieList()
+            _feedState.value = FeedState.Loading
+            val categories = getFeedCategoryUseCase()
+            _feedState.value = when (categories) {
+                is EntityWrapper.Success -> {
+                    FeedState.Main(
+                        categories = categories.entity
+                    )
+                }
+                is EntityWrapper.Fail -> {
+                    FeedState.Failed(
+                        reason = categories.error.message ?: "Unknown Error"
+                    )
+                }
+            }
         }
     }
 
