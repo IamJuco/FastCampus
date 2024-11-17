@@ -55,7 +55,8 @@ android {
 
 dependencies {
     // Coil
-    implementation("io.coil-kt.coil3:coil-compose:3.0.2")
+    implementation("io.coil-kt.coil3:coil-compose:3.0.3")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.0.3")
 
     // Navigation ( compose가 아닌 xml을 사용 )
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
