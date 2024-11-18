@@ -1,14 +1,14 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id 'com.android.library'
 }
 
-dependencies {
+apply from: "../base-build.gradle"
 
-    implementation 'androidx.core:core-ktx:1.15.0'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+dependencies {
+    implementation(project(path: ':libraries:storage-contract'))
+    implementation(project(path: ':libraries:network-contract'))
+    // api는 함부로 쓰면 안됌 ( 꼬임 )
+    // api = path에 담긴 모듈을 현재 모듈(core)를 참조할시 api에 담긴 모듈또한 참조하게 한다.
+    // 즉, core를 가지고있는 모듈을 ui-components까지 가지고 있는거임
+    api(project(path: ':ui_components'))
 }

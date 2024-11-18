@@ -1,15 +1,25 @@
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'androidx.navigation.safeargs.kotlin'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-}
 
+/**  아래 처럼 바꿔야함
+ plugins {
+ id 'com.android.application'
+ id 'org.jetbrains.kotlin.android'
+ id 'androidx.navigation.safeargs.kotlin'
+ id 'dagger.hilt.android.plugin'
+ id 'kotlin-android'
+ id 'kotlin-kapt'
+ }
+ */
+
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
-
+    // 강의에서는 namespace 없어도 된다고했지만 AGP(Android Gradle Plugin) 7.0 이상 부터는 꼭 있어야함
+    // 원래는 모듈마다 있으면 좋음
+    namespace 'kr.co.fastcampus.part4plus.restaurantapp'
     compileSdk 33
 
     defaultConfig {
@@ -69,13 +79,30 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "$versions.kotlin_compiler_extension_version"
+        kotlinCompilerExtensionVersion '1.4.1'
     }
 }
 
 
 
 dependencies {
+    // Hilt
+    api "com.google.dagger:hilt-android:$hilt_version"
+    api "androidx.hilt:hilt-navigation-fragment:1.0.0"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // Coil - 이번 강의에서 Coil을 공통으로 사용하는 곳이 많아서 base로 뺌
+    implementation "io.coil-kt:coil-compose:$coil_version"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Kotlin
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:$kotlin_version"))
     api "androidx.core:core-ktx:$kotlin_version"
 
@@ -85,14 +112,11 @@ dependencies {
     api "androidx.compose.material:material:$compose_material_version"
     api "androidx.activity:activity-compose:$activity_compose_version"
 
-    // Hilt
-    api "com.google.dagger:hilt-android:$hilt_version"
-    api "androidx.hilt:hilt-navigation-fragment:1.0.0"
-    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    // LifecCycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    // Timber
-    implementation "com.jakewharton.timber:timber:$timber_version"
-
+    // Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
