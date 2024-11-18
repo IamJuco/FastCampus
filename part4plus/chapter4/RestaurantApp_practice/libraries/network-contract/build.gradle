@@ -4,4 +4,8 @@ plugins {
 
 apply from: "../../base-build.gradle"
 
+dependencies {
+    // Gson
+    implementation "com.google.code.gson:gson:$gson_version"
+}
 // contract는 interface나 dataclass로 가져다 쓰기 위함이기에 dependency 필요없음
