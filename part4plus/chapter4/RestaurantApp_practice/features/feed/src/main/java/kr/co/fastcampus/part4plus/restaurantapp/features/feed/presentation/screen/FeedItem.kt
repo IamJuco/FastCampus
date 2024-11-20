@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
-import kr.co.fastcampus.part4plus.restaurantapp.R
+import kr.co.fastcampus.part4plus.restaurantapp.ui_components.R
 import kr.co.fastcampus.part4plus.restaurantapp.core.entity.RestaurantFeedItemEntity
 import kr.co.fastcampus.part4plus.restaurantapp.features.feed.presentation.input.IFeedViewModelInput
 import kr.co.fastcampus.part4plus.restaurantapp.ui_components.theme.Paddings
@@ -106,4 +106,3 @@ fun Thumbnail(
         )
     }
 }
-

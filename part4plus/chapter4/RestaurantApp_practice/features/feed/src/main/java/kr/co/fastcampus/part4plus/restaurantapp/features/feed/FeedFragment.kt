@@ -29,7 +29,7 @@ class FeedFragment: BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         observeUiEffects()
 
         return ComposeView(requireContext()).apply {
@@ -56,12 +56,12 @@ class FeedFragment: BaseFragment() {
                     when (it) {
                         is FeedUiEffect.OpenRestaurantDetail -> {
                             navController.safeNavigate(
-                                FeedFragmentDirections.actionFeedToDetail(it.id)
+                                "App://Detail/${it.id}"
                             )
                         }
                         is FeedUiEffect.OpenInfoDialog -> {
                             navController.safeNavigate(
-                                FeedFragmentDirections.actionFeedToInfo()
+                                "App://Notice"
                             )
                         }
                     }

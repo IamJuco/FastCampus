@@ -4,21 +4,15 @@
     android:id="@+id/nav_graph"
     app:startDestination="@+id/feed_fragment">
 
+    <!-- label과 deepLink의 Uri를 맞춰줌 -->
     <fragment
         android:id="@+id/feed_fragment"
         android:name="kr.co.fastcampus.part4plus.restaurantapp.features.feed.FeedFragment"
         android:label="Feed">
-        <action
-            android:id="@+id/action_feed_to_detail"
-            app:destination="@id/detail_fragment"
-            app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_feed_to_info"
-            app:destination="@id/info_fragment"
-            app:launchSingleTop="true" />
-
+        <deepLink app:uri="App://Feed" />
     </fragment>
 
+    <!-- deepLink에 /{id}를 통해 해당 아이디값을 argument로 가져올 수 있음-->
     <fragment
         android:id="@+id/detail_fragment"
         android:name="kr.co.fastcampus.part4plus.restaurantapp.features.detail.DetailFragment"
@@ -26,16 +20,10 @@
         <argument
             android:name="id"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_detail_to_rating"
-            app:destination="@id/rating_fragment"
-            app:launchSingleTop="true" />
-        <action
-            android:id="@+id/action_detail_to_map_dialog"
-            app:destination="@id/map_dialog_fragment"
-            app:launchSingleTop="true" />
+        <deepLink app:uri="App://Detail/{id}" />
     </fragment>
 
+    <!-- argument가 두개 일시 /{id} 값으로 하나씩 추가하면 됌-->
     <dialog
         android:id="@+id/rating_fragment"
         android:name="kr.co.fastcampus.part4plus.restaurantapp.features.detail.dialog.RatingDialogFragment"
@@ -46,20 +34,23 @@
         <argument
             android:name="rating"
             app:argType="float" />
+        <deepLink app:uri="App://Rating/{restaurantName}/{rating}" />
     </dialog>
 
     <dialog
         android:id="@+id/map_dialog_fragment"
         android:name="kr.co.fastcampus.part4plus.restaurantapp.features.detail.dialog.ShowMapDialogFragment"
-        android:label="MAP">
+        android:label="Map">
         <argument
             android:name="url"
             app:argType="string" />
+        <deepLink app:uri="App://Map/{url}" />
     </dialog>
 
     <dialog
         android:id="@+id/info_fragment"
         android:name="kr.co.fastcampus.part4plus.restaurantapp.features.feed.dialog.InfoDialogFragment"
         android:label="Notice">
+        <deepLink app:uri="App://Notice" />
     </dialog>
 </navigation>

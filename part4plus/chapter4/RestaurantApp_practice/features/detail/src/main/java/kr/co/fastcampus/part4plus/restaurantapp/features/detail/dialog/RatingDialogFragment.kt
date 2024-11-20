@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.fastcampus.part4plus.restaurantapp.core.BaseDialogFragment
-import kr.co.fastcampus.part4plus.restaurantapp.ui_components.R
+import kr.co.fastcampus.part4plus.restaurantapp.R
 import kr.co.fastcampus.part4plus.restaurantapp.ui_components.components.dialog.DialogPopup
 import kr.co.fastcampus.part4plus.restaurantapp.ui_components.components.dialog.Rating
 import kr.co.fastcampus.part4plus.restaurantapp.ui_components.models.buttons.LeadingIconData
@@ -34,8 +34,8 @@ class RatingDialogFragment : BaseDialogFragment() {
                     themeState = themeViewModel.themeState.collectAsState()
                 ) {
                     DialogPopup.Rating(
-                        restaurantName = args.restaurantName,
-                        rating = args.rating,
+                        restaurantName = arguments?.getString("restaurantName") ?: "",
+                        rating = arguments?.getFloat("rating") ?: 0.0f,
                         buttons = listOf(
                             DialogButton.Primary(
                                 title = getString(R.string.submit),
