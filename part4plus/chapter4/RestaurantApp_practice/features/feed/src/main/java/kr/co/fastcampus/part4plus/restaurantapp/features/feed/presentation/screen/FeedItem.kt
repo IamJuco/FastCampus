@@ -1,4 +1,4 @@
-package kr.co.fastcampus.part4plus.restaurantapp.ui_components.components.restaurant
+package kr.co.fastcampus.part4plus.restaurantapp.features.feed.presentation.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
