@@ -1,4 +1,4 @@
-package com.fastcampus.part5
+package com.fastcampus.part5.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
