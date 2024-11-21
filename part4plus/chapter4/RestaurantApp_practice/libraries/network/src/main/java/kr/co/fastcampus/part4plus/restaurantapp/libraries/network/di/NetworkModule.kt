@@ -5,11 +5,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kr.co.fastcampus.part4plus.restaurantapp.BuildConfig
 import kr.co.fastcampus.part4plus.restaurantapp.libraries.network.api.ApiService
 import kr.co.fastcampus.part4plus.restaurantapp.libraries.network_contract.api.NetworkRequestFactory
 import kr.co.fastcampus.part4plus.restaurantapp.libraries.network.retrofit.NetworkRequestFactoryImpl
 import kr.co.fastcampus.part4plus.restaurantapp.libraries.network.retrofit.StringConverterFactory
+import kr.co.fastcampus.part4plus.restaurantapp.libraries.network_contract.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
