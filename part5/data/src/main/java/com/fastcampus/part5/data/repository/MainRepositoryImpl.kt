@@ -1,7 +1,8 @@
 package com.fastcampus.part5.data.repository
 
 import android.content.Context
-import com.fastcampus.part5.domain.model.Product
+import com.fastcampus.part5.data.deserializer.BaseModelDeserializer
+import com.fastcampus.part5.domain.model.BaseModel
 import com.fastcampus.part5.domain.repository.MainRepository
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -16,12 +17,17 @@ class MainRepositoryImpl @Inject constructor(
     // Context가 여러종류 이기때문에 ApplicationContext라는 것을 알려줌
     @ApplicationContext private val context: Context
 ) : MainRepository {
-    override fun getProductList(): Flow<List<Product>> = flow {
+    override fun getModelList(): Flow<List<BaseModel>> = flow {
         val inputStream = context.assets.open("product_list.json")
         val inputStreamReader = InputStreamReader(inputStream)
         val jsonString = inputStreamReader.readText()
-        val type = object : TypeToken<List<Product>>() {}.type
+        val type = object : TypeToken<List<BaseModel>>() {}.type
 
-        emit(GsonBuilder().create().fromJson(jsonString, type))
+        emit(
+            GsonBuilder()
+                .registerTypeAdapter(BaseModel::class.java, BaseModelDeserializer())
+                .create()
+                .fromJson(jsonString, type)
+        )
     }
 }

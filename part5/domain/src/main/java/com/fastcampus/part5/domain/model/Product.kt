@@ -8,5 +8,6 @@ data class Product(
     val category: Category, // 해당 상품의 카테고리
     val shop: Shop,
     val isNew: Boolean, // 새로 생긴 상품인지 ( new 뱃지 )
-    val isFreeShipping: Boolean // 무료뱃지인지 아닌지
-)
+    val isFreeShipping: Boolean, // 무료뱃지인지 아닌지
+    override val type: ModelType = ModelType.PRODUCT
+) : BaseModel()
