@@ -21,9 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -31,9 +29,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.fastcampus.part5.ui.main.MainInsideScreen
 import com.fastcampus.part5.ui.theme.ShoppingMallTheme
 import com.fastcampus.part5.viewmodel.MainViewModel
-import com.fastcampus.presentation.R
 
 sealed class MainNavigationItem(
     var route: String,
@@ -70,7 +68,8 @@ fun MainScreen() {
     ) { innerPadding ->
         MainNavigationScreen(
             paddingValues = innerPadding,
-            navController = navController
+            navController = navController,
+            mainViewModel = viewModel
         )
     }
 }
@@ -135,14 +134,14 @@ fun MainBottomNavigationBar(navController: NavHostController) {
 }
 
 @Composable
-fun MainNavigationScreen(paddingValues: PaddingValues, navController: NavHostController) {
+fun MainNavigationScreen(mainViewModel: MainViewModel, paddingValues: PaddingValues, navController: NavHostController) {
     NavHost(
         modifier = Modifier.padding(paddingValues),
         navController = navController,
         startDestination = MainNavigationItem.Main.route
     ) {
         composable(MainNavigationItem.Main.route) {
-            Text(text = "Hello Main")
+            MainInsideScreen(mainViewModel)
         }
         composable(MainNavigationItem.Category.route) {
             Text(text = "Hello Category")
