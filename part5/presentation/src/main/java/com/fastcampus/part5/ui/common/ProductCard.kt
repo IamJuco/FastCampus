@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -45,7 +47,6 @@ fun ProductCard(product: Product, onClick: (Product) -> Unit?) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(320.dp)
                 .padding(10.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start
@@ -53,9 +54,11 @@ fun ProductCard(product: Product, onClick: (Product) -> Unit?) {
             Image(
                 painter = painterResource(id = R.drawable.product_image),
                 contentDescription = "descripition",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentWidth(Alignment.End)
+                    // 이미지 비율이 1:1로 구성이 됌
+                    .aspectRatio(1f)
             )
             Text(
                 text = product.shop.shopName,
@@ -76,7 +79,7 @@ fun Price(product: Product) {
     when (product.price.salesStatus) {
         SalesStatus.ON_SALE -> {
             Text(
-                text = "${product.price.originPrice}",
+                text = "${product.price.originPrice}원",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -84,26 +87,17 @@ fun Price(product: Product) {
 
         SalesStatus.ON_DISCOUNT -> {
             Text(
-                text = "${product.price.originPrice}",
+                text = "${product.price.originPrice}원",
                 fontSize = 14.sp,
                 style = TextStyle(textDecoration = TextDecoration.LineThrough)
             )
-            Row(
-                // 강의와 다르게 높이 값이 맞지않아서 해당 값 추가
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "할인가: ",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "${product.price.finalPrice}",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Purple80
-                )
-            }
+
+            Text(
+                text = "${product.price.finalPrice}원",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Purple80
+            )
         }
 
         SalesStatus.SOLD_OUT -> {
