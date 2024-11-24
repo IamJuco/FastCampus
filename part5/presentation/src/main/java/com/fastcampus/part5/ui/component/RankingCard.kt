@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fastcampus.part5.domain.model.Product
 import com.fastcampus.part5.domain.model.Ranking
+import com.fastcampus.part5.model.RankingVM
 import com.fastcampus.presentation.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -25,13 +26,13 @@ import com.google.accompanist.pager.rememberPagerState
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun RankingCard(model: Ranking, onClick: (Product) -> Unit) {
+fun RankingCard(presentationVM: RankingVM) {
     val pagerState = rememberPagerState()
-    val pageCount = model.productList.size / DEFAULT_RANKING_ITEM_COUNT
+    val pageCount = presentationVM.model.productList.size / DEFAULT_RANKING_ITEM_COUNT
 
     Column {
         Text(
-            text = model.title,
+            text = presentationVM.model.title,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp)
@@ -45,23 +46,37 @@ fun RankingCard(model: Ranking, onClick: (Product) -> Unit) {
             Column {
                 RankingProductCard(
                     index = index * 3,
-                    product = model.productList[index * 3], onClick
-                )
+                    product = presentationVM.model.productList[index * 3], presentationVM
+                ) { product ->
+                    presentationVM.openRankingProduct(product)
+                }
+
                 RankingProductCard(
                     index = index * 3 + 1,
-                    product = model.productList[index * 3 + 1], onClick
-                )
+                    product = presentationVM.model.productList[index * 3 + 1], presentationVM
+                ) { product ->
+                    presentationVM.openRankingProduct(product)
+                }
+
                 RankingProductCard(
                     index = index * 3 + 2,
-                    product = model.productList[index * 3 + 2], onClick
-                )
+                    product = presentationVM.model.productList[index * 3 + 2], presentationVM
+                ) { product ->
+                    presentationVM.openRankingProduct(product)
+                }
+
             }
         }
     }
 }
 
 @Composable
-fun RankingProductCard(index: Int, product: Product, onClick: (Product) -> Unit) {
+fun RankingProductCard(
+    index: Int,
+    product: Product,
+    presentationVM: RankingVM,
+    onClick: (Product) -> Unit
+) {
     Row(
         modifier = Modifier
             .padding(10.dp)

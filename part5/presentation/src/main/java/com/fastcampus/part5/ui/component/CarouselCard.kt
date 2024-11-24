@@ -27,14 +27,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fastcampus.part5.domain.model.Carousel
 import com.fastcampus.part5.domain.model.Product
+import com.fastcampus.part5.model.CarouselVM
 import com.fastcampus.presentation.R
 
 @Composable
-fun CarouselCard(model: Carousel, onClick: (Product) -> Unit) {
+fun CarouselCard(presentationVM: CarouselVM) {
     val scrollState = rememberLazyListState()
     Column {
         Text(
-            text = model.title,
+            text = presentationVM.model.title,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(10.dp)
@@ -45,8 +46,10 @@ fun CarouselCard(model: Carousel, onClick: (Product) -> Unit) {
                 .fillMaxWidth()
                 .wrapContentWidth()
         ) {
-            items(model.productList.size) {
-                CarouselProductCard(product = model.productList[it], onClick)
+            items(presentationVM.model.productList.size) {
+                CarouselProductCard(product = presentationVM.model.productList[it]) { productModel ->
+                    presentationVM.openCarouselProduct(productModel)
+                }
             }
         }
     }

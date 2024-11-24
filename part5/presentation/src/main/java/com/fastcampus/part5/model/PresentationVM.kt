@@ -1,5 +1,7 @@
 package com.fastcampus.part5.model
 
-abstract class PresentationVM {
+import com.fastcampus.part5.domain.model.BaseModel
+
+sealed class PresentationVM<T : BaseModel>(val model: T) {
     // fun
 }

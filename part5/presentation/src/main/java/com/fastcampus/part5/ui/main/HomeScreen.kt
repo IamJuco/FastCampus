@@ -6,12 +6,12 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.fastcampus.part5.domain.model.Banner
-import com.fastcampus.part5.domain.model.BannerList
-import com.fastcampus.part5.domain.model.Carousel
 import com.fastcampus.part5.domain.model.ModelType
-import com.fastcampus.part5.domain.model.Product
-import com.fastcampus.part5.domain.model.Ranking
+import com.fastcampus.part5.model.BannerListVM
+import com.fastcampus.part5.model.BannerVM
+import com.fastcampus.part5.model.CarouselVM
+import com.fastcampus.part5.model.ProductVM
+import com.fastcampus.part5.model.RankingVM
 import com.fastcampus.part5.ui.component.BannerCard
 import com.fastcampus.part5.ui.component.BannerListCard
 import com.fastcampus.part5.ui.component.CarouselCard
@@ -30,30 +30,18 @@ fun MainHomeScreen(viewModel: MainViewModel) {
             count = modelList.size,
             span = { index ->
                 val item = modelList[index]
-                val spanCount = getSpanCountByType(item.type, columnCount)
+                val spanCount = getSpanCountByType(item.model.type, columnCount)
                 GridItemSpan(spanCount)
             }
         ) {
             when (val item = modelList[it]) {
-                is Banner -> BannerCard(model = item) { model ->
-                    viewModel.openBanner(model)
-                }
+                is BannerVM -> BannerCard(presentationVM = item)
+                is BannerListVM -> BannerListCard(presentationVM = item)
+                is ProductVM -> ProductCard(presentationVM = item)
 
-                is BannerList -> BannerListCard(model = item) { model ->
-                    viewModel.openBannerList(model)
-                }
+                is CarouselVM -> CarouselCard(presentationVM = item)
 
-                is Product -> ProductCard(product = item) { model ->
-                    viewModel.openProduct(model)
-                }
-
-                is Carousel -> CarouselCard(model = item) { model ->
-                    viewModel.openCarouselProduct(model)
-                }
-
-                is Ranking -> RankingCard(model = item) { model ->
-                    viewModel.openRankingProduct(model)
-                }
+                is RankingVM -> RankingCard(presentationVM = item)
             }
         }
     }

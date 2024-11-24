@@ -13,10 +13,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.fastcampus.part5.domain.model.Banner
+import com.fastcampus.part5.model.BannerVM
 import com.fastcampus.presentation.R
 
 @Composable
-fun BannerCard(model: Banner, onClick: (Banner) -> Unit) {
+fun BannerCard(presentationVM: BannerVM) {
     Card(
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
@@ -24,7 +25,7 @@ fun BannerCard(model: Banner, onClick: (Banner) -> Unit) {
             .padding(10.dp)
             .shadow(20.dp),
         onClick = {
-            onClick(model)
+            presentationVM.openBanner(presentationVM.model.bannerId)
         }
     ) {
         Image(

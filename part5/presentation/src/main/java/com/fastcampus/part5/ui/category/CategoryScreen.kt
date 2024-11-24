@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.fastcampus.part5.domain.model.Category
-import com.fastcampus.part5.domain.model.Product
 import com.fastcampus.part5.ui.component.ProductCard
 import com.fastcampus.part5.viewmodel.category.CategoryViewModel
 
@@ -19,7 +18,6 @@ import com.fastcampus.part5.viewmodel.category.CategoryViewModel
 fun CategoryScreen(
     category: Category,
     viewModel: CategoryViewModel = hiltViewModel(),
-//    onClick: (Product) -> Unit
 ) {
     val products by viewModel.products.collectAsState()
     LaunchedEffect(key1 = category) {
@@ -32,10 +30,8 @@ fun CategoryScreen(
     ) {
         items(products.size) { index ->
             ProductCard(
-                product = products[index]
-            ) {
-                viewModel.openProduct(it)
-            }
+                presentationVM = products[index]
+            )
         }
     }
 }

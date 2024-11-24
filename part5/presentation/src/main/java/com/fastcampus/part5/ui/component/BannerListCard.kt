@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.fastcampus.part5.domain.model.BannerList
+import com.fastcampus.part5.model.BannerListVM
 import com.fastcampus.presentation.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -26,14 +27,14 @@ import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun BannerListCard(model: BannerList, onClick: (BannerList) -> Unit) {
+fun BannerListCard(presentationVM: BannerListVM) {
     val pagerState = rememberPagerState()
     // LaunchedEffect = 비동기처리 필요 ( suspend fun )
     LaunchedEffect(key1 = pagerState) {
         autoScrollInfinity(pagerState)
     }
     // HorizontalPager = ViewPager 같은 기능
-    HorizontalPager(count = model.imageList.size, state = pagerState) {
+    HorizontalPager(count = presentationVM.model.imageList.size, state = pagerState) {
         Card(
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
@@ -41,7 +42,7 @@ fun BannerListCard(model: BannerList, onClick: (BannerList) -> Unit) {
                 .padding(10.dp)
                 .shadow(20.dp),
             onClick = {
-                onClick(model)
+                presentationVM.openBannerList(presentationVM.model.bannerId)
             }
         ) {
             Image(

@@ -24,16 +24,18 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.fastcampus.part5.delegate.ProductDelegate
 import com.fastcampus.part5.domain.model.Category
 import com.fastcampus.part5.domain.model.Price
 import com.fastcampus.part5.domain.model.Product
 import com.fastcampus.part5.domain.model.SalesStatus
 import com.fastcampus.part5.domain.model.Shop
+import com.fastcampus.part5.model.ProductVM
 import com.fastcampus.part5.ui.theme.Purple80
 import com.fastcampus.presentation.R
 
 @Composable
-fun ProductCard(product: Product, onClick: (Product) -> Unit?) {
+fun ProductCard(presentationVM: ProductVM) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
@@ -59,15 +61,15 @@ fun ProductCard(product: Product, onClick: (Product) -> Unit?) {
                     .aspectRatio(1f)
             )
             Text(
-                text = product.shop.shopName,
+                text = presentationVM.model.shop.shopName,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = product.productName,
+                text = presentationVM.model.productName,
                 fontSize = 14.sp
             )
-            Price(product = product)
+            Price(product = presentationVM.model)
         }
     }
 }
@@ -112,79 +114,91 @@ fun Price(product: Product) {
 @Composable
 private fun PreviewProductCard() {
     ProductCard(
-        product = Product(
-            productId = "1",
-            productName = "상품 이름",
-            imageUrl = "",
-            price = Price(
-                30000,
-                30000,
-                SalesStatus.ON_SALE
+        ProductVM(
+            model = Product(
+                productId = "1",
+                productName = "상품 이름",
+                imageUrl = "",
+                price = Price(
+                    30000,
+                    30000,
+                    SalesStatus.ON_SALE
+                ),
+                category = Category.Top,
+                shop = Shop(
+                    "1",
+                    "샵이름",
+                    ""
+                ),
+                isNew = false,
+                isFreeShipping = false
             ),
-            category = Category.Top,
-            shop = Shop(
-                "1",
-                "샵이름",
-                ""
-            ),
-            isNew = false,
-            isFreeShipping = false
+            object : ProductDelegate {
+                override fun openProduct(product: Product) {
+                }
+            }
         )
-    ) {
-
-    }
+    )
 }
 
 @Preview
 @Composable
 private fun PreviewProductCardDiscount() {
     ProductCard(
-        product = Product(
-            productId = "1",
-            productName = "상품 이름",
-            imageUrl = "",
-            price = Price(
-                30000,
-                20000,
-                SalesStatus.ON_DISCOUNT
+        ProductVM(
+            model = Product(
+                productId = "1",
+                productName = "상품 이름",
+                imageUrl = "",
+                price = Price(
+                    30000,
+                    20000,
+                    SalesStatus.ON_DISCOUNT
+                ),
+                category = Category.Top,
+                shop = Shop(
+                    "1",
+                    "샵이름",
+                    ""
+                ),
+                isNew = false,
+                isFreeShipping = false
             ),
-            category = Category.Top,
-            shop = Shop(
-                "1",
-                "샵이름",
-                ""
-            ),
-            isNew = false,
-            isFreeShipping = false
+            object : ProductDelegate {
+                override fun openProduct(product: Product) {
+                }
+            }
         )
-    ) {
-
-    }
+    )
 }
 
 @Preview
 @Composable
 private fun PreviewProductCardSoldOut() {
     ProductCard(
-        product = Product(
-            productId = "1",
-            productName = "상품 이름",
-            imageUrl = "",
-            price = Price(
-                30000,
-                30000,
-                SalesStatus.SOLD_OUT
+        ProductVM(
+            model = Product(
+                productId = "1",
+                productName = "상품 이름",
+                imageUrl = "",
+                price = Price(
+                    30000,
+                    20000,
+                    SalesStatus.SOLD_OUT
+                ),
+                category = Category.Top,
+                shop = Shop(
+                    "1",
+                    "샵이름",
+                    ""
+                ),
+                isNew = false,
+                isFreeShipping = false
             ),
-            category = Category.Top,
-            shop = Shop(
-                "1",
-                "샵이름",
-                ""
-            ),
-            isNew = false,
-            isFreeShipping = false
+            object : ProductDelegate {
+                override fun openProduct(product: Product) {
+                }
+            }
         )
-    ) {
-
-    }
+    )
 }
