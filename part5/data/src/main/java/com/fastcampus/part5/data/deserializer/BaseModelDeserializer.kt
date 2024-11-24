@@ -1,6 +1,7 @@
 package com.fastcampus.part5.data.deserializer
 
 import com.fastcampus.part5.domain.model.Banner
+import com.fastcampus.part5.domain.model.BannerList
 import com.fastcampus.part5.domain.model.BaseModel
 import com.fastcampus.part5.domain.model.ModelType
 import com.fastcampus.part5.domain.model.Product
@@ -35,6 +36,10 @@ class BaseModelDeserializer : JsonDeserializer<BaseModel> {
 
             ModelType.PRODUCT -> {
                 gson.fromJson(root, Product::class.java)
+            }
+
+            ModelType.BANNER_LIST -> {
+                gson.fromJson(root, BannerList::class.java)
             }
         }
     }
