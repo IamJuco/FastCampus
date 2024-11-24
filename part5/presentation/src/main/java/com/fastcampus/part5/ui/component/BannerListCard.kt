@@ -26,18 +26,23 @@ import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun BannerListCard(model: BannerList) {
+fun BannerListCard(model: BannerList, onClick: (BannerList) -> Unit) {
     val pagerState = rememberPagerState()
+    // LaunchedEffect = 비동기처리 필요 ( suspend fun )
     LaunchedEffect(key1 = pagerState) {
         autoScrollInfinity(pagerState)
     }
+    // HorizontalPager = ViewPager 같은 기능
     HorizontalPager(count = model.imageList.size, state = pagerState) {
         Card(
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
-                .shadow(20.dp)
+                .shadow(20.dp),
+            onClick = {
+                onClick(model)
+            }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.product_image),

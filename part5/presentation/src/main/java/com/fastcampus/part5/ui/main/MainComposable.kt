@@ -8,10 +8,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.fastcampus.part5.domain.model.Banner
 import com.fastcampus.part5.domain.model.BannerList
+import com.fastcampus.part5.domain.model.Carousel
 import com.fastcampus.part5.domain.model.ModelType
 import com.fastcampus.part5.domain.model.Product
 import com.fastcampus.part5.ui.component.BannerCard
 import com.fastcampus.part5.ui.component.BannerListCard
+import com.fastcampus.part5.ui.component.CarouselCard
 import com.fastcampus.part5.ui.component.ProductCard
 import com.fastcampus.part5.viewmodel.MainViewModel
 
@@ -31,9 +33,17 @@ fun MainInsideScreen(viewModel: MainViewModel) {
             }
         ) {
             when (val item = modelList[it]) {
-                is Banner -> BannerCard(model = item)
-                is BannerList -> BannerListCard(model = item)
-                is Product -> ProductCard(product = item) {
+                is Banner -> BannerCard(model = item) { model ->
+                    viewModel.openBanner(model)
+                }
+                is BannerList -> BannerListCard(model = item) { model ->
+                    viewModel.openBannerList(model)
+                }
+                is Product -> ProductCard(product = item) { model ->
+                    viewModel.openProduct(model)
+                }
+                is Carousel -> CarouselCard(model = item)  {model ->
+                    viewModel.openCarouselProduct(model)
                 }
             }
         }
@@ -43,6 +53,8 @@ fun MainInsideScreen(viewModel: MainViewModel) {
 private fun getSpanCountByType(type: ModelType, defaultColumnCount: Int): Int {
     return when (type) {
         ModelType.PRODUCT -> 1
-        ModelType.BANNER, ModelType.BANNER_LIST -> defaultColumnCount
+        ModelType.BANNER,
+        ModelType.BANNER_LIST,
+        ModelType.CAROUSEL -> defaultColumnCount
     }
 }
