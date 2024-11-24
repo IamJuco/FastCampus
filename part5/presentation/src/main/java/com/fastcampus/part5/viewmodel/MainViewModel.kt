@@ -3,6 +3,7 @@ package com.fastcampus.part5.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
+import com.fastcampus.part5.delegate.ProductDelegate
 import com.fastcampus.part5.domain.model.Banner
 import com.fastcampus.part5.domain.model.BannerList
 import com.fastcampus.part5.domain.model.Category
@@ -22,7 +23,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     mainUseCase: MainUseCase,
     categoryUseCase: CategoryUseCase
-) : ViewModel() {
+) : ViewModel(), ProductDelegate {
     private val _columnCount = MutableStateFlow(DEFAULT_COLUMN_COUNT)
     val columnCount: StateFlow<Int> = _columnCount
     val modelList = mainUseCase.getModelList()
@@ -38,7 +39,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun openProduct(product: Product) {
+    override fun openProduct(product: Product) {
 
     }
 
