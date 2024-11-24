@@ -20,7 +20,7 @@ import com.fastcampus.part5.ui.component.RankingCard
 import com.fastcampus.part5.viewmodel.MainViewModel
 
 @Composable
-fun MainInsideScreen(viewModel: MainViewModel) {
+fun HomeScreen(viewModel: MainViewModel) {
     val modelList by viewModel.modelList.collectAsState(initial = listOf())
     val columnCount by viewModel.columnCount.collectAsState()
     LazyVerticalGrid(
