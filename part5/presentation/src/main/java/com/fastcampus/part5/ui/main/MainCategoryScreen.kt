@@ -16,11 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.fastcampus.part5.viewmodel.MainViewModel
 
 @Composable
-fun CategoryScreen(
-    viewModel: MainViewModel
+fun MainCategoryScreen(
+    viewModel: MainViewModel,
+    navController: NavHostController
 ) {
     val categories by viewModel.categories.collectAsState(initial = listOf())
     LazyVerticalGrid(columns = GridCells.Fixed(3)) {
@@ -30,7 +32,10 @@ fun CategoryScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
-                    .shadow(10.dp)
+                    .shadow(10.dp),
+                onClick = {
+                    viewModel.openCategory(navController, categories[it])
+                }
             ) {
                 Text(
                     text = categories[it].categoryName,

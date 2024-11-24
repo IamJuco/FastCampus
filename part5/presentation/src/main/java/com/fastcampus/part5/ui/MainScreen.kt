@@ -3,10 +3,7 @@ package com.fastcampus.part5.ui
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,28 +18,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.fastcampus.part5.ui.main.CategoryScreen
-import com.fastcampus.part5.ui.main.HomeScreen
+import androidx.navigation.navArgument
+import com.fastcampus.part5.domain.model.Category
+import com.fastcampus.part5.ui.category.CategoryScreen
+import com.fastcampus.part5.ui.main.MainCategoryScreen
+import com.fastcampus.part5.ui.main.MainHomeScreen
 import com.fastcampus.part5.ui.theme.ShoppingMallTheme
 import com.fastcampus.part5.viewmodel.MainViewModel
-
-sealed class MainNavigationItem(
-    var route: String,
-    val icon: ImageVector,
-    var name: String
-) {
-    data object Main : MainNavigationItem("Main", Icons.Filled.Home, "Main")
-    data object Category : MainNavigationItem("Category", Icons.Filled.Star, "Category")
-    data object MyPage : MainNavigationItem("MyPage", Icons.Filled.AccountBox, "MyPage")
-}
+import com.google.gson.Gson
 
 @Preview(showBackground = true)
 @Composable
@@ -58,13 +49,17 @@ fun MainScreen() {
     val snackbarHostState = remember { SnackbarHostState() }
     val navController = rememberNavController()
 
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     Scaffold(
         topBar = {
             Header(viewModel)
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         bottomBar = {
-            MainBottomNavigationBar(navController)
+            if (NavigationItem.MainNav.isMainRoute(currentRoute)) {
+                MainBottomNavigationBar(navController = navController, currentRoute = currentRoute)
+            }
         }
     ) { innerPadding ->
         MainNavigationScreen(
@@ -99,17 +94,14 @@ fun Header(viewModel: MainViewModel) {
 }
 
 @Composable
-fun MainBottomNavigationBar(navController: NavHostController) {
+fun MainBottomNavigationBar(navController: NavHostController, currentRoute: String?) {
     val bottomNavigationItems = listOf(
-        MainNavigationItem.Main,
-        MainNavigationItem.Category,
-        MainNavigationItem.MyPage
+        NavigationItem.MainNav.Home,
+        NavigationItem.MainNav.Category,
+        NavigationItem.MainNav.MyPage
     )
 
     NavigationBar {
-        val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-
         bottomNavigationItems.forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
@@ -135,20 +127,36 @@ fun MainBottomNavigationBar(navController: NavHostController) {
 }
 
 @Composable
-fun MainNavigationScreen(viewModel: MainViewModel, paddingValues: PaddingValues, navController: NavHostController) {
+fun MainNavigationScreen(
+    viewModel: MainViewModel,
+    paddingValues: PaddingValues,
+    navController: NavHostController
+) {
     NavHost(
         modifier = Modifier.padding(paddingValues),
         navController = navController,
-        startDestination = MainNavigationItem.Main.route
+        startDestination = NavigationRouteName.MAIN_HOME
     ) {
-        composable(MainNavigationItem.Main.route) {
-            HomeScreen(viewModel)
+        composable(NavigationRouteName.MAIN_HOME) {
+            MainHomeScreen(viewModel)
         }
-        composable(MainNavigationItem.Category.route) {
-            CategoryScreen(viewModel)
+        composable(NavigationRouteName.MAIN_CATEGORY) {
+            MainCategoryScreen(viewModel, navController)
         }
-        composable(MainNavigationItem.MyPage.route) {
+        composable(NavigationRouteName.MAIN_MY_PAGE) {
             Text(text = "Hello MyPage")
+        }
+        composable(
+            route = NavigationRouteName.CATEGORY + "/{category}",
+            arguments = listOf(navArgument("category") {
+                type = NavType.StringType
+            })
+        ) {
+            val categoryString = it.arguments?.getString("category")
+            val category = Gson().fromJson(categoryString, Category::class.java)
+            if (category != null) {
+                CategoryScreen(category = category)
+            }
         }
     }
 }
