@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.fastcampus.part5.domain.model.Banner
 import com.fastcampus.part5.domain.model.BannerList
 import com.fastcampus.part5.domain.model.Product
+import com.fastcampus.part5.domain.model.Ranking
 import com.fastcampus.part5.domain.usecase.MainUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,11 @@ class MainViewModel @Inject constructor(
     }
 
     fun openCarouselProduct(product: Product) {
+
+    }
+
+
+    fun openRankingProduct(product: Product) {
 
     }
 
