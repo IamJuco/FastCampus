@@ -6,10 +6,13 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.fastcampus.part5.domain.model.Category
+
+import com.fastcampus.part5.domain.model.Product
 import com.fastcampus.part5.ui.NavigationRouteName.CATEGORY
 import com.fastcampus.part5.ui.NavigationRouteName.MAIN_CATEGORY
 import com.fastcampus.part5.ui.NavigationRouteName.MAIN_HOME
 import com.fastcampus.part5.ui.NavigationRouteName.MAIN_MY_PAGE
+import com.fastcampus.part5.ui.NavigationRouteName.PRODUCT_DETAIL
 
 sealed class NavigationItem(
     open val route: String
@@ -34,6 +37,7 @@ sealed class NavigationItem(
     }
 
     data class CategoryNav(val category: Category) : NavigationItem(CATEGORY)
+    data class ProductDetailNav(val product: Product) : NavigationItem(PRODUCT_DETAIL)
 }
 
 object NavigationRouteName {
@@ -41,4 +45,5 @@ object NavigationRouteName {
     const val MAIN_CATEGORY = "main_category"
     const val MAIN_MY_PAGE = "main_my_page"
     const val CATEGORY = "category"
+    const val PRODUCT_DETAIL = "detail"
 }

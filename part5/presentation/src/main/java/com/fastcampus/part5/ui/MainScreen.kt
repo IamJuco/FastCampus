@@ -28,9 +28,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.fastcampus.part5.domain.model.Category
+import com.fastcampus.part5.domain.model.Product
 import com.fastcampus.part5.ui.category.CategoryScreen
 import com.fastcampus.part5.ui.main.MainCategoryScreen
 import com.fastcampus.part5.ui.main.MainHomeScreen
+import com.fastcampus.part5.ui.product_detail.ProductDetailScreen
 import com.fastcampus.part5.ui.theme.ShoppingMallTheme
 import com.fastcampus.part5.viewmodel.MainViewModel
 import com.google.gson.Gson
@@ -47,9 +49,9 @@ fun GreetingPreview() {
 fun MainScreen() {
     val viewModel = hiltViewModel<MainViewModel>()
     val snackbarHostState = remember { SnackbarHostState() }
-    val navController = rememberNavController()
+    val navHostController = rememberNavController()
 
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     Scaffold(
         topBar = {
@@ -58,13 +60,16 @@ fun MainScreen() {
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         bottomBar = {
             if (NavigationItem.MainNav.isMainRoute(currentRoute)) {
-                MainBottomNavigationBar(navController = navController, currentRoute = currentRoute)
+                MainBottomNavigationBar(
+                    navController = navHostController,
+                    currentRoute = currentRoute
+                )
             }
         }
     ) { innerPadding ->
         MainNavigationScreen(
             paddingValues = innerPadding,
-            navController = navController,
+            navHostController = navHostController,
             viewModel = viewModel
         )
     }
@@ -130,18 +135,18 @@ fun MainBottomNavigationBar(navController: NavHostController, currentRoute: Stri
 fun MainNavigationScreen(
     viewModel: MainViewModel,
     paddingValues: PaddingValues,
-    navController: NavHostController
+    navHostController: NavHostController
 ) {
     NavHost(
         modifier = Modifier.padding(paddingValues),
-        navController = navController,
+        navController = navHostController,
         startDestination = NavigationRouteName.MAIN_HOME
     ) {
         composable(NavigationRouteName.MAIN_HOME) {
-            MainHomeScreen(viewModel)
+            MainHomeScreen(navHostController, viewModel)
         }
         composable(NavigationRouteName.MAIN_CATEGORY) {
-            MainCategoryScreen(viewModel, navController)
+            MainCategoryScreen(viewModel, navHostController)
         }
         composable(NavigationRouteName.MAIN_MY_PAGE) {
             Text(text = "Hello MyPage")
@@ -155,7 +160,18 @@ fun MainNavigationScreen(
             val categoryString = it.arguments?.getString("category")
             val category = Gson().fromJson(categoryString, Category::class.java)
             if (category != null) {
-                CategoryScreen(category = category)
+                CategoryScreen(category = category, navHostController = navHostController)
+            }
+        }
+        composable(
+            NavigationRouteName.PRODUCT_DETAIL + "/{product}",
+            arguments = listOf(navArgument("product") {
+                type = NavType.StringType
+            })
+        ) {
+            val productString = it.arguments?.getString("product")
+            if (productString != null) {
+                ProductDetailScreen(productString)
             }
         }
     }
